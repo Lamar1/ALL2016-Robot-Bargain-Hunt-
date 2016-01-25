@@ -1,0 +1,16 @@
+import sys
+import time
+from tkinter import *
+window = Tk()
+canvas= Canvas(window, width=300, height=300, bg='white')
+canvas.pack()
+id1=canvas.create_rectangle(40,40,140,140,fill="lightblue",outline="brown",width=6)
+# Update to display square on the arena
+canvas.update()
+#Do nothing for _ seconds
+time.sleep(2)
+#Access the coordinates at which the rectangle is found (idl)
+x1,y1,x2,y2=canvas.coords(id1)
+canvas.coords(id1,x1+30,y1+30,x2+30,y2+30)
+canvas.update()
+window.mainloop()
