@@ -1,0 +1,9 @@
+import sys
+from tkinter import *
+# chooses background colour, size in pixels
+canvas =Canvas(width = 300, height = 200, bg = 'white')
+#packs canvas into frame
+canvas.pack(expand = YES, fill = BOTH)
+#creates curved line
+canvas.create_line(40,170,100,140,130,60,40,120,fill="black",smooth="true")
+mainloop()
