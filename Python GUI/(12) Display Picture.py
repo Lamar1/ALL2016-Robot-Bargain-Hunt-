@@ -1,5 +1,5 @@
 """
-Display picture on canvas (req .gif imagine resource)
+Display picture on canvas (req .gif image resource)
 """
 
 from Tkinter import *
