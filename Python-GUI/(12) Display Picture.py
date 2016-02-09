@@ -2,7 +2,7 @@
 Display picture on canvas (req .gif image resource)
 """
 
-from Tkinter import *
+from tkinter import *
 # create the canvas, size in pixels
 canvas = Canvas(width = 300, height = 200, bg = 'yellow')
 # pack the canvas into a frame/form
