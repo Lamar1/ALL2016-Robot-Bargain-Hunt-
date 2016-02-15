@@ -1,0 +1,21 @@
+import random
+import sqlite3 as sql
+def randomitem():
+    try:
+        con = sql.connect()
+        cur = con.cursor
+        itemList = list(cur.fetchall())
+        cur.execute(''' SELECT name FROM sqltable ORDER BY
+                        RANDOM() LIMIT 6;''')
+        randomItems = []
+
+    while(randomItems < 6):
+        append.randomItems(sample(itemList(), 6)
+
+
+    finally:
+            con.close() 
+    
+def randomcolour():
+    """ A tuple of colours to change robot colour"""
+                        
