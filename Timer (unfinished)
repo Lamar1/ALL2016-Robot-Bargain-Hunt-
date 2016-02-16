@@ -3,7 +3,8 @@ import time
 def count_down(Time):
     if type(Time) != int:
         raise TypeError("Time must be an interger") 
-    for t in range(Time, -1, -1):
+    else:
+        for t in range(Time, -1, -1):
         # format as 2 digit integers, fills with zero to the left
         # divmod() gives minutes, seconds
         sf = "{:02d}:{:02d}".format(*divmod(t, 60))
@@ -26,9 +27,12 @@ class Gui:
             self.frame = Frame(self.root,borderwidth=10,relief=GROOVE)
             self.frame.pack(fill=BOTH,expand=True)
             
+            self.label = Label(self.root, text="Choose Duration")
+            self.label.pack()
+            
             self.button1 = Button(self.frame, text='1 minute', command= lambda a=60: self.count_down(a))
-            self.button2 = Button(self.frame, text'2 minutes', command= lambda b=120: self.count_down(b))
-            self.button3 = Button(self.frame, text '4 minutes', command= lambda c=240: self.count_down(c))
+            self.button2 = Button(self.frame, text='2 minutes', command= lambda b=120: self.count_down(b))
+            self.button3 = Button(self.frame, text='4 minutes', command= lambda c=240: self.count_down(c))
             
             self.button1.pack(side=LEFT,fill=BOTH,expand=True)
             self.button2.pack(side=LEFT,fill=BOTH,expand=True)
