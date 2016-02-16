@@ -1,7 +1,9 @@
 import tkinter as tk
 import time
-def count_down():
-    for t in range(120, -1, -1):
+def count_down(Time):
+    if type(Time) != int:
+        raise TypeError("Time must be an interger") 
+    for t in range(Time, -1, -1):
         # format as 2 digit integers, fills with zero to the left
         # divmod() gives minutes, seconds
         sf = "{:02d}:{:02d}".format(*divmod(t, 60))
@@ -13,15 +15,24 @@ def count_down():
 # create root/main window
 root = tk.Tk()
 time_str = tk.StringVar()
-# create the time display label, give it a large font
-# label auto-adjusts to the font
+# create the time display label, give it a large font. label auto-adjusts to the font
 label_font = ('helvetica', 40)
 tk.Label(root, textvariable=time_str, font=label_font, bg='white', 
          fg='blue', relief='raised', bd=3).pack(fill='x', padx=5, pady=5)
-# create start and stop buttons
-# pack() positions the buttons below the label
-tk.Button(root, text='Count Start', command=count_down).pack()
-# stop simply exits root window
-tk.Button(root, text='Count Stop', command=root.destroy).pack()
+# create timer buttons and PAUSE BUTTON
+class Gui:
+        def __init__(self,root):
+            self.root = root
+            self.frame = Frame(self.root,borderwidth=10,relief=GROOVE)
+            self.frame.pack(fill=BOTH,expand=True)
+            
+            self.button1 = Button(self.frame, text='1 minute', command= lambda a=60: self.count_down(a))
+            self.button2 = Button(self.frame, text'2 minutes', command= lambda b=120: self.count_down(b))
+            self.button3 = Button(self.frame, text '4 minutes', command= lambda c=240: self.count_down(c))
+            
+            self.button1.pack(side=LEFT,fill=BOTH,expand=True)
+            self.button2.pack(side=LEFT,fill=BOTH,expand=True)
+            self.button3.pack(side=LEFT,fill=BOTH,expand=True)
+         
 # start the GUI event loop
 root.mainloop()
