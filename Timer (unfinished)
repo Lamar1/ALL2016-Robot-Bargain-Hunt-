@@ -1,4 +1,4 @@
-import tkinter 
+from tkinter import *
 import time
 def count_down(Time):
     if type(Time) != int:
@@ -13,14 +13,7 @@ def count_down(Time):
         root.update()
         # delay one second
         time.sleep(1)
-# create root/main window
-root = tkinter.Tk()
-time_str = tkinter.StringVar()
-# create the time display label, give it a large font. label auto-adjusts to the font
-label_font = ('helvetica', 40)
-tkinter.Label(root, textvariable=time_str, font=label_font, bg='white', 
-         fg='blue', relief='raised', bd=3).pack(fill='x', padx=5, pady=5)
-# create timer buttons and PAUSE BUTTON
+# create timer buttons 
 class Gui:
         def __init__(self,root):
             self.root = root
@@ -37,6 +30,11 @@ class Gui:
             self.button1.pack(side=LEFT,fill=BOTH,expand=True)
             self.button2.pack(side=LEFT,fill=BOTH,expand=True)
             self.button3.pack(side=LEFT,fill=BOTH,expand=True)
-         
-# start the GUI event loop
-root.mainloop()
+def main():
+    root = Tk()
+    time_str = StringVar()
+    label_font = ('helvetica', 40)
+    tkinter.Label(root, textvariable=time_str, font=label_font, bg='white',fg='blue', relief='raised', bd=3).pack(fill='x', padx=5, pady=5)         
+    root.mainloop()
+if __name__ == '__main__':
+        sys.exit(main())
