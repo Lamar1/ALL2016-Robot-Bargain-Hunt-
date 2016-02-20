@@ -15,8 +15,19 @@ class Gui:
             self.root = root
             # create start and stop buttons
             # pack() positions the buttons below the label
-            self.button1 = Button(self.root, text='2 minutes', command=lambda a = 120: count_down(a))
-            self.button1.pack(side=LEFT,fill=BOTH,expand=True)                
+            self.frame = Frame(self.root,borderwidth=10,relief=GROOVE)
+
+            self.labelA = Label(self.root, text="Choose Duration")
+            self.labelA.pack()
+            
+            self.button1 = Button(self.frame, text='1 minute', command= lambda a=60: count_down(a))
+            self.button2 = Button(self.frame, text='2 minutes', command= lambda b=120: count_down(b))
+            self.button3 = Button(self.frame, text='4 minutes', command= lambda c=240: count_down(c))
+            
+            self.button1.pack(side=LEFT,fill=BOTH,expand=True)
+            self.button2.pack(side=LEFT,fill=BOTH,expand=True)
+            self.button3.pack(side=LEFT,fill=BOTH,expand=True)
+            self.frame.pack(fill=BOTH,expand=True)
 
 
 def main():
