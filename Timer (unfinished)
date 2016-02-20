@@ -1,4 +1,4 @@
-import tkinter as tk
+import tkinter 
 import time
 def count_down(Time):
     if type(Time) != int:
@@ -14,11 +14,11 @@ def count_down(Time):
         # delay one second
         time.sleep(1)
 # create root/main window
-root = tk.Tk()
-time_str = tk.StringVar()
+root = tkinter.Tk()
+time_str = tkinter.StringVar()
 # create the time display label, give it a large font. label auto-adjusts to the font
 label_font = ('helvetica', 40)
-tk.Label(root, textvariable=time_str, font=label_font, bg='white', 
+tkinter.Label(root, textvariable=time_str, font=label_font, bg='white', 
          fg='blue', relief='raised', bd=3).pack(fill='x', padx=5, pady=5)
 # create timer buttons and PAUSE BUTTON
 class Gui:
