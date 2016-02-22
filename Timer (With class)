@@ -1,7 +1,9 @@
 from tkinter import *
 import time
+
+global _duration 
 def count_down(duration):
-    for t in range(duration, -1, -1):
+    for t in range(_duration, -1, -1):
         # format as 2 digit integers, fills with zero to the left
         # divmod() gives minutes, seconds
         sf = "{:02d}:{:02d}".format(*divmod(t, 60))
@@ -10,24 +12,34 @@ def count_down(duration):
         root1.update()
         # delay one second
         time.sleep(1)
+        
 class Gui:
     def __init__(self,root):
             self.root = root
-            # create start and stop buttons
-            # pack() positions the buttons below the label
-            self.frame = Frame(self.root,borderwidth=10,relief=GROOVE)
+            
+            self._frame = Frame(self.root,borderwidth=10,relief=GROOVE)
 
-            self.labelA = Label(self.root, text="Choose Duration")
-            self.labelA.pack()
+            self._labelA = Label(self.root, text="Choose Duration")
+            self._labelA.pack()
             
-            self.button1 = Button(self.frame, text='1 minute', command= lambda a=60: count_down(a))
-            self.button2 = Button(self.frame, text='2 minutes', command= lambda b=120: count_down(b))
-            self.button3 = Button(self.frame, text='4 minutes', command= lambda c=240: count_down(c))
+            self._button1 = Button(self._frame, text='1 minute', command= lambda a=60: clockInput(a))
+            self._button2 = Button(self._frame, text='2 minutes', command= lambda b=120: clockInput(b))
+            self._button3 = Button(self._frame, text='4 minutes', command= lambda c=240: clockInput(c))
+            self._button4 = Button(self._frame, text='Start', command = lambda: count_down(_duration))
             
-            self.button1.pack(side=LEFT,fill=BOTH,expand=True)
-            self.button2.pack(side=LEFT,fill=BOTH,expand=True)
-            self.button3.pack(side=LEFT,fill=BOTH,expand=True)
-            self.frame.pack(fill=BOTH,expand=True)
+            self._button1.pack(side=LEFT,fill=BOTH,expand=True)
+            self._button2.pack(side=LEFT,fill=BOTH,expand=True)
+            self._button3.pack(side=LEFT,fill=BOTH,expand=True)
+            self._button4.pack(side=LEFT,fill=BOTH,expand=True)
+            self._frame.pack(fill=BOTH,expand=True)
+
+            def clockInput(Length):
+                global _duration
+                _duration = Length
+                
+            def pressedButton(self,number):
+                self._labelA.config(text= number % 'seconds selected %d')
+                
 
 
 def main():
