@@ -2,16 +2,17 @@ import random
 import sqlite3 as sql
 def randomitem():
     try:
-        con = sql.connect()
+        con = sql.connect('ITEM DATABASE.sqlite')
         cur = con.cursor
-        itemList = list(cur.fetchall())
-        cur.execute(''' SELECT name FROM sqltable ORDER BY
-                        RANDOM() LIMIT 6;''')
-        randomItems = []
+        cur.execute(''' SELECT product FROM items ORDER BY
+                        RANDOM() LIMIT 9;''')
+        ItemList = []
 
-    while(randomItems < 6):
-        append.randomItems(sample(itemList(), 6)
-
+    for row in cur:
+    ItemList.append(row)
+    print(row)
+    #List1 is what is used in searcg algorithms
+    list1 = [val for sublist in ItemList for val in sublist]
 
     finally:
             con.close() 
