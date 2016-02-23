@@ -1,0 +1,13 @@
+import random
+import sqlite3 as sql
+list2 = []
+con = sql.connect('ITEM DATABASE.sqlite')
+cur = con.cursor()
+
+                               
+cur.execute(''' SELECT * FROM items ;''')
+for row in cur:
+    list2.append(row)
+    print(row)
+list1 = [val for sublist in list2 for val in sublist]
+con.close
