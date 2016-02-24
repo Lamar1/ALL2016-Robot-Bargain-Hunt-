@@ -8,11 +8,11 @@ def randomitem():
                         RANDOM() LIMIT 9;''')
         ItemList = []
 
-    for row in cur:
-    ItemList.append(row)
-    print(row)
-    #List1 is what is used in searcg algorithms
-    list1 = [val for sublist in ItemList for val in sublist]
+        for row in cur:
+        ItemList.append(row)
+        print(row)
+        #List1 is what is used in searcg algorithms
+        list1 = [val for sublist in ItemList for val in sublist]
 
     finally:
             con.close() 
