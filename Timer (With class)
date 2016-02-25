@@ -4,13 +4,12 @@ import time
 global _duration 
 def count_down(duration):
     for t in range(_duration, -1, -1):
-        # format as 2 digit integers, fills with zero to the left
+        # formats duration as 2 digit integers
         # divmod() gives minutes, seconds
         sf = "{:02d}:{:02d}".format(*divmod(t, 60))
-        #print(sf)  # test
         time_str.set(sf)
         root1.update()
-        # delay one second
+        #delays number changing for 1 second 
         time.sleep(1)
         
 class Gui:
