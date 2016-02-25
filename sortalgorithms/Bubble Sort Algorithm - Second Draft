@@ -13,7 +13,7 @@ def bubbleSort(wordList):
             letter2 = value2[0]
             letter1Value = letterOrder[letter1]
             letter2Value = letterOrder[letter2]
-            
+            #change the > symbol to a < and the function will sort into descending order
             if letter1Value > letter2Value:
                 wordList[j], wordList[j+1] = value2, value1
 
