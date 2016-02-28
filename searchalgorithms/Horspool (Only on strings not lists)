@@ -1,0 +1,38 @@
+def BoyerMooreHorspool(pattern, text):
+    '''Pattern is the str you're looking for in text'''
+    patternlength = len(pattern)
+    textlength = len(text)
+    if patternlength > textlength:
+        return ValueError("Text Length is shorter than the pattern")
+    #Pre process (Bad character table)
+    BadCharTable = []
+    #256 for the amount of bytes 
+    for char in range(256): BadCharTable.append(patternlength)
+    for index in range(patternlength - 1): 
+      BadCharTable[ord(pattern[index])] = patternlength - index - 1
+     #Converted to tuple so Bad character table cannot be edited anymore
+    BadCharTable = tuple(BadCharTable)
+
+    index = patternlength - 1
+    while index < textlength:
+        j = patternlength - 1; i = index
+        while j >= 0 and text[i] == pattern[j]:
+            j -= 1; i -= 1
+            
+        if j == -1:
+            return(i + 1)
+        index += BadCharTable[ord(text[index])]
+        
+    return(-1)
+
+if __name__ == '__main__':
+    text = "them string, wagwarn, hello," #replace with desired string when implemented
+    pattern = "them string" #replace with search bar input when implemented
+    s = BoyerMooreHorspool(pattern, text)
+    print('Text:',text)
+    print('Pattern:',pattern)
+    if s > -1:
+        print('Pattern \"' + pattern + '\" was found. Position: ',s)
+    if s == -1:
+        print("The string was not found")
+
