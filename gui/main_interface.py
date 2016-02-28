@@ -69,8 +69,37 @@ class MainInterface:
 
             timerLabel = Label(self.frameTimer, text="Timer", background="white", fg="mediumblue")
             timerLabel.place(anchor="c", relx=0.5, rely=0.14)
-
-
+            
+        global _duration 
+        #global _duration allows the timer to recieve the timer information stored in clockInput.  1 minute is the placeholder value 
+        def count_down(duration):
+            if duration is None:
+                _duration = 60
+            for t in range(_duration, -1, -1):
+        # formats duration as 2 digit integers 00:00
+        # divmod() converts the seconds to minutes, seconds
+            sf = "{:02d}:{:02d}".format(*divmod(t, 60))
+            time_str.set(sf)
+            root.update()
+        #delays number changing for 1 second 
+            time.sleep(1)
+        
+        #Creates the related timer buttons & adds them to 'frameTimer',_Button1-3 is the duration selected in seconds
+        _button1 = Button(frameTimer, text='1 minute', command= lambda a=60: clockInput(a))
+        _button2 = Button(frameTimer, text='2 minutes', command= lambda b=120: clockInput(b))
+        _button3 = Button(frameTimer, text='4 minutes', command= lambda c=240: clockInput(c))
+        _button4 = Button(frameTimer, text='Start', command = lambda: count_down(_duration))
+            
+        _button1.pack(side=LEFT,fill=BOTH,expand=True)
+        _button2.pack(side=LEFT,fill=BOTH,expand=True)
+        _button3.pack(side=LEFT,fill=BOTH,expand=True)
+        _button4.pack(side=LEFT,fill=BOTH,expand=True)
+       
+        
+        def clockInput(Length):
+            '''Saves the duration selected by a timer button'''
+                _duration = Length
+                
         def distributeItems():
             '''TODO: Randomly places items within map & start timer'''
             sys.stdout.write("Distribute pressed \n")
