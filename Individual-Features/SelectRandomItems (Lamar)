@@ -10,10 +10,11 @@ def randomitem():
         ItemList = []
 
         for row in cur:
-        ItemList.append(row)
-        print(row)
-        #List1 is what is used in searcg algorithms
-        list1 = [val for sublist in ItemList for val in sublist]
+            ItemList.append(row)
+            print(row)
+            
+        global _list1
+        _list1 = [val for sublist in ItemList for val in sublist]
 
     finally:
             con.close() 
