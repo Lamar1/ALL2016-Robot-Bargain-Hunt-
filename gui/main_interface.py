@@ -1,12 +1,12 @@
 from tkinter import *
 import tkinter as tk
+import time
 from expanded_basket import ExpandedBasket
 
 '''
 [TODO]
 *Implement timer
 *Fill framePlaceholder
-
 [NOTES]
 Must include the resource file 'arrows.gif' and expanded_basket.py in the same directory to run correctly
 '''
@@ -20,7 +20,9 @@ class MainInterface:
         self.root.wm_title("Python ALL Project")
         self.root.config(background = "#FFFFFF")
         self.root.geometry("1125x800")
+        self.time_str = StringVar()
         
+
 
         def frames(self):
             '''Create and place frames'''
@@ -57,7 +59,16 @@ class MainInterface:
             self.image = tk.PhotoImage(file="arrows.gif")
             self.expandButton = Button(self.frameBasket, image=self.image, background="white", command = lambda: expandedBasket())
             self.expandButton.place(anchor="c", relx=0.9, rely=0.06)
-
+            
+            #Creates the related timer buttons & adds them to 'frameTimer',_Button1-3 is the duration selected in seconds
+            self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerHandler(a))
+            self._button2 = Button(self.frameTimer, text='2 minutes', command= lambda b=120: timerHandler(b))
+            self._button3 = Button(self.frameTimer, text='4 minutes', command= lambda c=240: timerHandler(c))
+            
+            self._button1.place(anchor="c", relx=0.15, rely=0.87)
+            self._button2.place(anchor="c", relx=0.50, rely=0.87)
+            self._button3.place(anchor="c", relx=0.85, rely=0.87)
+             
 
         def labels(self):
             '''Create and place labels'''
@@ -70,10 +81,17 @@ class MainInterface:
             timerLabel = Label(self.frameTimer, text="Timer", background="white", fg="mediumblue")
             timerLabel.place(anchor="c", relx=0.5, rely=0.14)
 
+            self.timerActiveLabel = Label(self.frameTimer, text="UPDATE", background="white", fg="mediumblue")
+            self.timerActiveLabel.place(anchor="c", relx=0.5, rely=0.40)
 
+        def timerHandler(duration):
+            self.duration = duration
+            
+                
         def distributeItems():
             '''TODO: Randomly places items within map & start timer'''
             sys.stdout.write("Distribute pressed \n")
+            
 
         def expandedBasket():
             '''Launches expanded basket'''
