@@ -1,34 +1,34 @@
 from tkinter import *
 import time
-def count_down(duration):
+def Timercountdown(duration):
+    #Minus 1 from each side of duration int
     for t in range(duration, -1, -1):
-        # format as 2 digit integers, fills with zero to the left
-        # divmod() gives minutes, seconds
-        sf = "{:02d}:{:02d}".format(*divmod(t, 60))
-        #print(sf)  # test
-        time_str.set(sf)
+        # divmod() formats number to minutes & seconds
+        MinSec = "{:02d}:{:02d}".format(*divmod(t, 60))
+        #Displays time in string format
+        time_str.set(MinSec)
+        #Updates Timer display
         root.update()
-        # delay one second
+        # delays counter from changing for one second
         time.sleep(1)
-        
+ #Creates tkinter environment        
 root = Tk()
+#Adds the time string to entry widget 
 time_str = StringVar()
 Label(root, textvariable=time_str, font=('helvetica',40), bg='white',
       fg='blue', relief='raised', bd=3).pack(fill='x', padx=5, pady=5)
 
 frame = Frame(root,borderwidth=10,relief=GROOVE)
-
             
 labelA = Label(root, text="Choose Duration")
 labelA.pack()
-button1 = Button(frame, text='1 minute', command= lambda a=60: count_down(a))
-button2 = Button(frame, text='2 minutes', command= lambda b=120: count_down(b))
-button3 = Button(frame, text='4 minutes', command= lambda c=240: count_down(c))
+button1 = Button(frame, text='1 minute', command= lambda a=60: Timercountdown(a))
+button2 = Button(frame, text='2 minutes', command= lambda b=120: Timercountdown(b))
+button3 = Button(frame, text='4 minutes', command= lambda c=240: Timercountdown(c))
 button1.pack(side=LEFT,fill=BOTH,expand=True)
 button2.pack(side=LEFT,fill=BOTH,expand=True)
 button3.pack(side=LEFT,fill=BOTH,expand=True)
 
 frame.pack(fill=BOTH,expand=True)
-
 root.mainloop()
 
