@@ -119,6 +119,8 @@ class MainInterface:
 def main():
     root = Tk()
     mainInterface = MainInterface(root)
+    global time_str
+    time_str = StringVar()
     root.mainloop()
 
 if __name__ == '__main__':
