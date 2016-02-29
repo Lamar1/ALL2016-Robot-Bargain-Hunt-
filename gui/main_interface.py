@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from expanded_basket import ExpandedBasket
+import time
 
 '''
 [TODO]
@@ -95,7 +96,7 @@ class MainInterface:
                 # divmod() converts the seconds to minutes, seconds
                 sf = "{:02d}:{:02d}".format(*divmod(t, 60))
                 time_str.set(sf)
-                root.update()
+                root1.update()
                 #delays number changing for 1 second
                 time.sleep(1)
         
@@ -117,11 +118,15 @@ class MainInterface:
 
 
 def main():
-    root = Tk()
-    mainInterface = MainInterface(root)
+    global root1
+    root1 = Tk()
+    mainInterface = MainInterface(root1)
     global time_str
     time_str = StringVar()
-    root.mainloop()
+    labelTimer =Label(root1, textvariable=time_str, font=('helvetica',40), bg='white',
+                 fg='blue', relief='raised', bd=3)
+    labelTimer.pack(fill='x', padx=5, pady=5)
+    root1.mainloop()
 
 if __name__ == '__main__':
         sys.exit(main())
