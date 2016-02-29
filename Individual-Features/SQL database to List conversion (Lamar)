@@ -12,7 +12,7 @@ def sqlToList():
             list2.append(row)
             print(row)
 
-        list1 = [val for sublist in list2 for val in sublist]
+        _list1 = [val for sublist in list2 for val in sublist]
 
     finally:
         con.close
