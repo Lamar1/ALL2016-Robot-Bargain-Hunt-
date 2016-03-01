@@ -18,16 +18,22 @@ def randomitem():
 
     finally:
             con.close()
-
+def RandomItemToTable:
+    global _List4Table
+    ConversionList= choice(list1)
+    _List4Table.extend(ConversionList)
+    del ConversionList
+    print(_List4Table)
+    
 def AddProduct2Listbox():
     root = Tk()
-    list12 = Listbox(root)
+    _Listbox1 = Listbox(root)
     global H
     H = 0
-    for i in list1:
+    for i in _List4Table:
         H = H+1
-        list12.insert(H,i)
-        list12.pack()
+        _Listbox1.insert(H,i)
+        _Listbox1.pack()
         root.mainloop
 
 
