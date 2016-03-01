@@ -1,6 +1,6 @@
 def RandomItemToTable:
     global _List4Table
-    ConversionList= choice(_list1)
+    ConversionList= choice(list1)
     _List4Table.extend(ConversionList)
     del ConversionList
     print(_List4Table)
