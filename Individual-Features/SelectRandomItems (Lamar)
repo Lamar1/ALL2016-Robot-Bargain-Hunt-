@@ -22,6 +22,4 @@ def randomitem():
 randomitem()
 print(_list1)
     
-def randomcolour():
-    """ A tuple of colours to change robot colour"""
                         
