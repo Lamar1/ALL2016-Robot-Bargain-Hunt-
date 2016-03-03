@@ -4,10 +4,10 @@ Linear seach algorithm
 
 __author__ = "Ryan"
 
-def linearSearch (myItem, myList):
+def linearSearch (myItem):
     foundItem = False
     pos = 0
-    while pos < len(myList) and not foundItem:
+    while pos < len(_List4Table) and not foundItem:
         if myList[pos] == myItem:
             foundItem = True
             pos = pos + 1
@@ -15,7 +15,7 @@ def linearSearch (myItem, myList):
 
 theList = ["apple", "banana", "orange"]
 theItem = "apple"
-isFound = linearSearch(theItem, theList)
+isFound = linearSearch(theItem)
 if isFound:
     print ("Found")
 else:
