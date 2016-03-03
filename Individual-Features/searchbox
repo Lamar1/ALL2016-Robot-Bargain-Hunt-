@@ -1,0 +1,52 @@
+from tkinter import *
+from tkinter import ttk
+from sys import argv
+
+search_input = argv
+
+####FUNCTIONS####
+
+# Function to look for items in list
+def find_items ():
+    for i in list2: #Needs to be amended to the correct list box
+        #for i in glob.glob('/*'+searchinput):
+        searchresults.insert(END, search_input)
+
+####SCREENS####
+
+#Screen for the search bar, to be later implemented into the expanded basket view
+root = Tk()
+root.title("Item Searcher")
+root.geometry('800x800')
+root.resizable(width=FALSE, height=FALSE)
+
+####FRAMES####
+
+#Frame to hold: Search box, search button and quit button
+controlFrame = ttk.Frame(root, height=100, width=200)
+controlFrame.pack()
+
+#Frame to show search results of find
+resultsframe = ttk.Frame(root, height=00, width=200)
+resultsframe.pack()
+
+####BUTTONS AND BOXES####
+
+#Search Box
+entry = Entry(controlFrame, width=30)
+entry.pack()
+
+#Listbox for listing all results of the find
+searchresults = Listbox(resultsframe, height=100, width=200)
+searchresults.pack(fill=BOTH, expand=YES)
+
+#Search button to intiate find_items
+searchbutton = ttk.Button(controlFrame, text="Search", command=find_items)
+searchbutton.pack()
+
+#Quit button to exit the application
+quitButton = ttk.Button(controlFrame, text="Quit")
+quitButton.pack()
+quitButton.bind ('<ButtonPress>', lambda e: exit())
+
+root.mainloop()
