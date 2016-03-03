@@ -1,0 +1,35 @@
+from tkinter import Tk, Button,ttk
+import sqlite3 as sql
+root = Tk()
+global tree
+tree = ttk.Treeview(root)
+
+tree["columns"]=("Price","Quantity","Category")
+tree.column("Price", width=100 )
+tree.column("Quantity", width=100)
+tree.column("Category", width=100)
+tree.heading("Price", text=" Price")
+tree.heading("Quantity", text=" Quantity")
+tree.heading("Category", text=" Category")
+
+def TreeviewItemTable():
+    for prodname in _List4Table:
+        try:
+            ItemList1= []
+            con= sql.connect('ITEM DATABASE.sqlite')
+            cur = con.cursor()
+            
+            cur.execute('''SELECT Price,Quantity,"Category " FROM items
+                           WHERE Product = ?;''', (prodname,))
+            for row in cur:
+                ItemList1.append(row)
+                print(row)
+
+                global _ItemList
+                _ItemList = [val for sublist in ItemList1 for val in sublist]
+                tree.insert("" , "end", text= prodname, values=(_ItemList[0],_ItemList[1],_ItemList[2]))
+        finally:
+            con.close()
+            
+tree.pack()
+root.mainloop()
