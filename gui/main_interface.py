@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 import time
 from expanded_basket import ExpandedBasket
+from random import randint
 
 '''
 [TODO]
@@ -19,8 +20,10 @@ class MainInterface:
         self.root.resizable(width=FALSE, height=FALSE)
         self.root.wm_title("Python ALL Project")
         self.root.config(background = "#FFFFFF")
-        self.root.geometry("1125x800")
+        self.root.geometry("1025x800")
         self.time_str = StringVar()
+
+        
         
 
 
@@ -84,6 +87,14 @@ class MainInterface:
             self.timerActiveLabel = Label(self.frameTimer, text="UPDATE", background="white", fg="mediumblue")
             self.timerActiveLabel.place(anchor="c", relx=0.5, rely=0.40)
 
+
+        def map(self):
+            self.canvas = Canvas(self.frameGame,width = 800, height = 800, bg = 'black')
+            self.canvas.pack(expand = YES, fill = BOTH)
+            self.map = PhotoImage(file = 'map.png')
+            self.canvas.create_image(0, 0, image = self.map, anchor = NW)
+            
+
         def timerHandler(duration):
             self.duration = duration
             
@@ -91,6 +102,25 @@ class MainInterface:
         def distributeItems():
             '''TODO: Randomly places items within map & start timer'''
             sys.stdout.write("Distribute pressed \n")
+
+            self.item = PhotoImage(file = 'item.png')
+            tup = ((105,105),(105,130),(105, 155),(105, 180),(130, 105),(155, 105),(180, 105),(180, 130),(180, 155)
+                   ,(180, 180),(155, 180),(130, 180),(105, 265),(105, 290),(105, 315),(105, 340),(130, 340)
+                   ,(155, 340),(180, 340),(180, 290),(180, 265),(180, 315),(155, 265),(130, 265),(105, 425)
+                   ,(105, 450),(105, 475),(105, 500),(130, 425),(155, 425),(180, 425),(180, 450),(180, 475)
+                   ,(180, 500),(155, 500),(130, 500),(135, 650),(135, 675),(135, 700),(135, 725),(160, 650)
+                   ,(185, 650),(210, 650),(210, 675),(210, 700),(210, 725),(185, 725),(160, 725),(650, 50)
+                   ,(675, 50),(700, 50),(725, 50),(750, 75),(750, 100),(750, 125),(750, 150),(586, 200)
+                   ,(611, 200),(636, 200),(661, 200),(586, 246),(611, 246),(636, 246),(661, 246),(586, 360)
+                   ,(611, 360),(636,360),(661,360),(686,360),(586, 406),(611, 406),(636, 406),(661, 406)
+                   ,(686, 406),(586, 490),(611, 490),(636, 490),(661, 490),(686, 490),(586, 536),(611, 536)
+                   ,(636, 536),(661, 536),(686, 536),(520, 650),(520, 675),(520, 700),(520, 725),(565, 650)
+                   ,(565, 675),(565, 700),(565, 725),(650, 650),(650, 675),(650, 700),(650, 725),(695, 650)
+                   ,(695, 675),(695, 700),(695, 725))
+
+            for x in range (20):
+                rnd = randint(0,99)
+                self.canvas.create_image(tup[rnd], image = self.item)
             
 
         def expandedBasket():
@@ -103,6 +133,7 @@ class MainInterface:
         frames(self)
         buttons(self)
         labels(self)
+        map(self)
 
 
 def main():

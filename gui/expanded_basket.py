@@ -1,25 +1,28 @@
+from tkinter import Tk, Button,ttk
 from tkinter import *
+import sqlite3 as sql
 import tkinter as tk
+
 
 class ExpandedBasket:
 
     def __init__(self, root):
         '''Basic window setup'''
         self.root = root
+       
         self.root.resizable(width=FALSE, height=FALSE)
         self.root.wm_title("Python ALL Project")
         self.root.config(background = "#FFFFFF")
         self.root.geometry("1125x800")
+        self.tree = ttk.Treeview(self.root)
         
 
         def frames(self):
             '''Create and place frames'''
             self.topFrame = Frame(self.root, width=1125, height = 50, background="royalblue")
-            self.topFrame.grid(row=0, column=1, padx=0, pady=0, sticky="nes")
-            
-            #Frame to TreeView Basket
-            self.tableFrame = Frame(self.root, width=1125, height = 800, background="white")
-            self.tableFrame.grid(row=2, column=1, padx=0, pady=0, sticky="w")
+            self.topFrame.place(anchor="c",relx=0.5, rely=0.03)
+
+
 
         def buttons(self):
             '''Create and place buttons'''
@@ -55,6 +58,38 @@ class ExpandedBasket:
 
             self.categoryLabel = Label(self.topFrame, text="Category", background="royalblue", fg="white", font=(12))
             self.categoryLabel.place(anchor="c", relx=0.905, rely=0.5)
+
+        def table(self):
+            self.tree["columns"]=("Price","Quantity","Category")
+            self.tree.column("Price", width=305 )
+            self.tree.column("Quantity", width=305)
+            self.tree.column("Category", width=310)
+            self.tree.heading("Price", text=" Price")
+            self.tree.heading("Quantity", text=" Quantity")
+            self.tree.heading("Category", text=" Category")
+
+            _List4Table =['Grapes','Salmon','Bacon','Wine','Celery','Duck']
+
+            def TreeviewItemTable():
+                for prodname in _List4Table:
+                    try:
+                        ItemList1= []
+                        con= sql.connect('ITEM DATABASE.sqlite')
+                        cur = con.cursor()
+                        
+                        cur.execute('''SELECT Price,Quantity,"Category " FROM items
+                                       WHERE Product = ?;''', (prodname,))
+                        for row in cur:
+                            ItemList1.append(row)
+                            print(row)
+
+                            global _ItemList
+                            _ItemList = [val for sublist in ItemList1 for val in sublist]
+                            self.tree.insert("" , "end", text= prodname, values=(_ItemList[0],_ItemList[1],_ItemList[2]))
+                    finally:
+                        con.close()
+            self.tree.place(relx=0.001, rely=0.06)
+            
 
 
         def sortID():
@@ -122,6 +157,7 @@ class ExpandedBasket:
         frames(self)
         buttons(self)
         labels(self)
+        table(self)
         self.root.mainloop()
 
 
@@ -134,4 +170,3 @@ if __name__ == '__main__':
         sys.exit(main())
 
         
-
