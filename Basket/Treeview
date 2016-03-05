@@ -12,6 +12,9 @@ tree.heading("Price", text=" Price")
 tree.heading("Quantity", text=" Quantity")
 tree.heading("Category", text=" Category")
 
+#DELETE TABLE EXAMPLE '_List4Table BEFORE FINAL IMPLEMENTATION
+_List4Table =['Grapes','Salmon',Bacon','Wine','Celery','Duck']
+
 def TreeviewItemTable():
     for prodname in _List4Table:
         try:
