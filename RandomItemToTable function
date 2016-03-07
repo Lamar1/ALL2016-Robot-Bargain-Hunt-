@@ -2,10 +2,12 @@
 def RandomItemToTable():
     #Creates _List4Table (contains products that will be added to treeview basket)
     global _List4Table
+    _List4Table = []
     #Creates ConversionList with a random entry from _list1
     ConversionList= random.choice((_list1))
+    print(ConversionList)
     #Adds the item to _List4Table
-    _List4Table.extend(ConversionList)
+    _List4Table.append(ConversionList)
     #Deletes the ConversionList
     del ConversionList
     #Prints the contents of _List4Table to IDLE
