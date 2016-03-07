@@ -1,5 +1,5 @@
 
-def RandomItemToTable:
+def RandomItemToTable():
     #Creates _List4Table (contains products that will be added to treeview basket)
     global _List4Table
     #Creates ConversionList with a random entry from _list1
