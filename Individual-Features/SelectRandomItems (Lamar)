@@ -1,24 +1,27 @@
 import random
 import sqlite3 as sql
 Author = "Lamar Gould"
+#A function to retrieve SQL database information and convert to a list removing any tuples 
 def randomitem():
     try:
+        #connects to the item database
         con = sql.connect('ITEM DATABASE.sqlite')
         cur = con.cursor()
+        #selects 9 random products from items table in fatabase
         cur.execute(''' SELECT product FROM items ORDER BY
                         RANDOM() LIMIT 9;''')
         ItemList = []
-
+        #Creates a list of these items and prints the items selected to screen 
         for row in cur:
             ItemList.append(row)
             print(row)
-            
+        #Creates global _list1 to create another list from ItemList (to remove the tuple)    
         global _list1
         _list1 = [val for sublist in ItemList for val in sublist]
-
+    #closes database connection in any circumstance
     finally:
             con.close()
-
+#calls function and prints converted list
 randomitem()
 print(_list1)
     
