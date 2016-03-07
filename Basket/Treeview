@@ -3,7 +3,7 @@ import sqlite3 as sql
 root = Tk()
 global tree
 tree = ttk.Treeview(root)
-
+#Creates the Treeview with 4 columns (Product name is the first)
 tree["columns"]=("Price","Quantity","Category")
 tree.column("Price", width=100 )
 tree.column("Quantity", width=100)
@@ -16,23 +16,29 @@ tree.heading("Category", text=" Category")
 _List4Table =['Grapes','Salmon',Bacon','Wine','Celery','Duck']
 
 def TreeviewItemTable():
+#for loop iterates over all items contained in _List4Table 
+#_List4Table contains items collected in game 
     for prodname in _List4Table:
         try:
+        #Connects to the item database 
             ItemList1= []
             con= sql.connect('ITEM DATABASE.sqlite')
             cur = con.cursor()
-            
+            #finds the relevant information for product in _List4Table
             cur.execute('''SELECT Price,Quantity,"Category " FROM items
                            WHERE Product = ?;''', (prodname,))
+            #Appends Price, Quantity & Category to ItemList1              
             for row in cur:
                 ItemList1.append(row)
                 print(row)
-
+                #creates _ItemList from ItemList1 (removing any tuples)
                 global _ItemList
                 _ItemList = [val for sublist in ItemList1 for val in sublist]
+                #Appends at the end of the tree with Price, Quantity & Category in the relevant column
                 tree.insert("" , "end", text= prodname, values=(_ItemList[0],_ItemList[1],_ItemList[2]))
         finally:
+            #Closes database connection in any circumstance
             con.close()
-            
+#Packs tree & starts Tk overlay             
 tree.pack()
 root.mainloop()
