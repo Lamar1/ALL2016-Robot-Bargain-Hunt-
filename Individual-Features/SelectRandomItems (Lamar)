@@ -7,7 +7,7 @@ def randomitem():
         #connects to the item database
         con = sql.connect('ITEM DATABASE.sqlite')
         cur = con.cursor()
-        #selects 9 random products from items table in fatabase
+        #selects 9 random products from items table in database
         cur.execute(''' SELECT product FROM items ORDER BY
                         RANDOM() LIMIT 9;''')
         ItemList = []
