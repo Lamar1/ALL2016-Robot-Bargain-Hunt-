@@ -1,38 +1,33 @@
 def BoyerMooreHorspool(pattern, text):
     '''Pattern is the str you're looking for in text'''
+    #Checks the length of the string
     patternlength = len(pattern)
     textlength = len(text)
+    #Prevents the pattern to be found in text from being larger than the text itself
     if patternlength > textlength:
         return ValueError("Text Length is shorter than the pattern")
-    #Pre process (Bad character table)
+    #Pre process creation of the (Bad character table)
     BadCharTable = []
     #256 for the amount of bytes 
     for char in range(256): BadCharTable.append(patternlength)
+    #Gives a 'jump' distance to every character in & out of the pattern
     for index in range(patternlength - 1): 
       BadCharTable[ord(pattern[index])] = patternlength - index - 1
      #Converted to tuple so Bad character table cannot be edited anymore
     BadCharTable = tuple(BadCharTable)
-
+    #Stops the while loop iterating over the patternlength once to many (when there are no longer chars in the text)
     index = patternlength - 1
+    #Searches 
     while index < textlength:
-        j = patternlength - 1; i = index
-        while j >= 0 and text[i] == pattern[j]:
-            j -= 1; i -= 1
+        #Says how much the pattern should skip/jump in the text
+        jump = patternlength - 1; i = index
+        while jump >= 0 and text[i] == pattern[j]:
+            jump -= 1; i -= 1
             
-        if j == -1:
+        if jump == -1:
             return(i + 1)
         index += BadCharTable[ord(text[index])]
-        
+    #returns -1 if location of pattern is not found in the text    
     return(-1)
 
 if __name__ == '__main__':
-    text = "them string, wagwarn, hello," #replace with desired string when implemented
-    pattern = "them string" #replace with search bar input when implemented
-    s = BoyerMooreHorspool(pattern, text)
-    print('Text:',text)
-    print('Pattern:',pattern)
-    if s > -1:
-        print('Pattern \"' + pattern + '\" was found. Position: ',s)
-    if s == -1:
-        print("The string was not found")
-
