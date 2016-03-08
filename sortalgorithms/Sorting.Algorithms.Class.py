@@ -2,6 +2,8 @@ class SortAlgorithms:
 
     def bubbleSort():
     #Function to sort a list into alphabetical/numerical order using Bubble Sort algorithm
+        #Removes all entries from tree view
+        tree.delete(*tree.get_children())
         for i in range(len(_List4Table) - 1):
             for j in range(len(_List4Table) - 1):
                 if (_List4Table[j])[0] > (_List4Table[j+1])[0]:
@@ -10,6 +12,7 @@ class SortAlgorithms:
 
     def bubbleSortReverse():
     #Function to sort a list into reverse alphabetical/numerical order using Bubble Sort algorithm
+        tree.delete(*tree.get_children())
         for i in range(len(_List4Table) - 1):
             for j in range(len(_List4Table) - 1):
                 if (_List4Table[j])[0] < (_List4Table[j+1])[0]:
@@ -19,6 +22,7 @@ class SortAlgorithms:
 
     def insertionSort():
     #Function to sort a list into alphabetical/numerical order using Insertion Sort algorithm
+        tree.delete(*tree.get_children())
         for i in range(len(_List4Table)):
             comparisonValue = _List4Table[i]
             while (i > 0) and (_List4Table[i-1] > comparisonValue):
@@ -29,6 +33,7 @@ class SortAlgorithms:
 
     def insertionSortReverse():
     #Function to sort a list into reverse alphabetical/numerical order using Insertion Sort algorithm
+        tree.delete(*tree.get_children())
         for i in range(len(_List4Table)):
             comparisonValue = _List4Table[i]
             while (i > 0) and (_List4Table[i-1] < comparisonValue):
@@ -40,6 +45,7 @@ class SortAlgorithms:
 
     def quickSort():
     #Function to sort a list into alphabetical/numerical order using Quick Sort algorithm
+        tree.delete(*tree.get_children())
         lessThan = []
         equalTo = []
         greaterThan = []
@@ -58,6 +64,7 @@ class SortAlgorithms:
 
     def quickSortReverse():
     #Function to sort a list into  reverse alphabetical/numerical order using Quick Sort algorithm
+        tree.delete(*tree.get_children())
         lessThan = []
         equalTo = []
         greaterThan = []
