@@ -1,14 +1,20 @@
 
 def RandomItemToTable():
-    #Creates _List4Table (contains products that will be added to treeview basket)
-    global _List4Table
+    #Creates _List4Table (contains product names that will be added to treeview basket) _ProdPrice adds price to treeview
+    global _List4Table, _ProdPrice
     _List4Table = []
     #Creates ConversionList with a random entry from _list1
     ConversionList= random.choice((_list1))
+    #Creates a list with just the product name through slicing
+    _ConversionList1 = ConversionList[::2] 
+    #Creates a list with just the product price through slicing
+    _ConversionList2 = ConversionList[1::2] 
     print(ConversionList)
-    #Adds the item to _List4Table
-    _List4Table.append(ConversionList)
-    #Deletes the ConversionList
-    del ConversionList
+    #Adds the product name to _List4Table
+    _List4Table.append(_ConversionList1)
+    #Adds the product price to _ProdPrice
+    _ProdPrice.append(_ConversionList2)
+    #Deletes the ConversionList,_ConversionList1
+    del ConversionList,_ConversionList1,_ConversionList2
     #Prints the contents of _List4Table to IDLE
     print(_List4Table)
