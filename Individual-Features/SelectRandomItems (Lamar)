@@ -8,7 +8,7 @@ def randomitem():
         con = sql.connect('ITEM DATABASE.sqlite')
         cur = con.cursor()
         #selects 9 random products from items table in database
-        cur.execute(''' SELECT product FROM items ORDER BY
+        cur.execute(''' SELECT product,Price FROM items ORDER BY
                         RANDOM() LIMIT 9;''')
         ItemList = []
         #Creates a list of these items and prints the items selected to screen 
