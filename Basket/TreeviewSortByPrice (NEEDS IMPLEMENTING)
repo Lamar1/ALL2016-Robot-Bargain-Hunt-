@@ -1,0 +1,24 @@
+def TreeviewSortByPrice():
+#for loop iterates over all items contained in _ProdTable 
+#_ProdTable contains items collected in game 
+    for price in _ProdTable:
+        try:
+        #Connects to the item database 
+            ItemList1= []
+            con= sql.connect('ITEM DATABASE.sqlite')
+            cur = con.cursor()
+            #finds the relevant information for product in _ProdTable
+            cur.execute('''SELECT Product,Quantity,"Category " FROM items
+                           WHERE Price = ?;''', (price,))
+            #Appends Product, Quantity & Category to ItemList1              
+            for row in cur:
+                ItemList1.append(row)
+                print(row)
+                #creates _ProdTable1 from ItemList1 (removing any tuples)
+                global _ProdTable1
+                _ProdTable1 = [val for sublist in ItemList1 for val in sublist]
+                #Appends at the end of the tree with Name, Quantity & Category in the relevant column
+                tree.insert("" , "end", text= _ProdTable1[0], values=(price,_ProdTable1[1],_ProdTable1[2]))
+        finally:
+            #Closes database connection in any circumstance
+            con.close()
