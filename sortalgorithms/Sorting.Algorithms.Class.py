@@ -21,26 +21,28 @@ class SortAlgorithms:
 
 
     def insertionSort():
+        #Used to sort by price
     #Function to sort a list into alphabetical/numerical order using Insertion Sort algorithm
         tree.delete(*tree.get_children())
-        for i in range(len(_List4Table)):
-            comparisonValue = _List4Table[i]
-            while (i > 0) and (_List4Table[i-1] > comparisonValue):
-                _List4Table[i] = _List4Table[i-1]
+        for i in range(len(_ProdPrice)):
+            comparisonValue = _ProdPrice[i]
+            while (i > 0) and (_ProdPrice[i-1] > _ProdPrice):
+                _ProdPrice[i] = _ProdPrice[i-1]
                 i -= 1
-            _List4Table[i] = comparisonValue
-        return _List4Table
+            _ProdPrice[i] = comparisonValue
+        return _ProdPrice
 
     def insertionSortReverse():
+        #Used to sort by price
     #Function to sort a list into reverse alphabetical/numerical order using Insertion Sort algorithm
         tree.delete(*tree.get_children())
-        for i in range(len(_List4Table)):
-            comparisonValue = _List4Table[i]
-            while (i > 0) and (_List4Table[i-1] < comparisonValue):
-                _List4Table[i] = _List4Table[i-1]
+        for i in range(len(_ProdPrice)):
+            comparisonValue = _ProdPrice[i]
+            while (i > 0) and (_ProdPrice[i-1] < comparisonValue):
+                _ProdPrice[i] = _ProdPrice[i-1]
                 i -= 1
-            _List4Table[i] = comparisonValue
-        return _List4Table
+            _ProdPrice[i] = comparisonValue
+        return _ProdPrice
 
 
     def quickSort():
