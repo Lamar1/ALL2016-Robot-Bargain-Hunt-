@@ -26,7 +26,7 @@ class SortAlgorithms:
         tree.delete(*tree.get_children())
         for i in range(len(_ProdPrice)):
             comparisonValue = _ProdPrice[i]
-            while (i > 0) and (_ProdPrice[i-1] > _ProdPrice):
+            while (i > 0) and (_ProdPrice[i-1] > comparisonValue):
                 _ProdPrice[i] = _ProdPrice[i-1]
                 i -= 1
             _ProdPrice[i] = comparisonValue
