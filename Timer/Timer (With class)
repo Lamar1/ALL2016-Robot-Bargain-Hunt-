@@ -3,11 +3,10 @@ import time
 
 global _duration 
 def count_down(duration):
-    for t in range(_duration, -1, -1):
-        # formats duration as 2 digit integers
-        # divmod() gives minutes, seconds
-        sf = "{:02d}:{:02d}".format(*divmod(t, 60))
-        time_str.set(sf)
+    for time in range(_duration, -1, -1):
+        # divmod() formats to minutes, seconds e.g. 00:00
+        Formatting = "{:02d}:{:02d}".format(*divmod(time, 60))
+        time_str.set(Formatting)
         root1.update()
         #delays number changing for 1 second 
         time.sleep(1)
