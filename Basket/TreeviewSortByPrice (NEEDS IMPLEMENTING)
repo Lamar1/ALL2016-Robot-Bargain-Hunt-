@@ -1,6 +1,6 @@
 def TreeviewSortByPrice():
 #for loop iterates over all items contained in _ProdPrice 
-#_ProdPrice contains items collected in game 
+#_ProdPrice contains item prices collected in game 
     for price in _ProdPrice:
         try:
         #Connects to the item database 
@@ -17,7 +17,7 @@ def TreeviewSortByPrice():
                 #creates _ProdTable1 from ItemList1 (removing any tuples)
                 global _ProdTable1
                 _ProdTable1 = [val for sublist in ItemList1 for val in sublist]
-                #Appends at the end of the tree with Name, Quantity & Category in the relevant column
+                #Appends at the end of the tree with Name, Quantity, Price & Category in the relevant column
                 tree.insert("" , "end", text= _ProdTable1[0], values=(price,_ProdTable1[1],_ProdTable1[2]))
         finally:
             #Closes database connection in any circumstance
