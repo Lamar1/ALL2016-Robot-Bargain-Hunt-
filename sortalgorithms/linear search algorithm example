@@ -1,0 +1,16 @@
+def linearSearch(item, list):
+  found = False
+  position = 0
+  while position < len(list) and not found:
+    if list[position] ==item:
+      found = True
+    position = position +1
+  return found
+if __name__=="__main__":
+  store = ["apples", "salmon", "anchovies", "bread"] 
+  slist = input("Enter Item Name: ")
+  isitFound = linearSearch(slist, store)
+  if isitFound:
+    print ("This is in our store!")
+  else:
+    print ("We do not have this item in stock!")
