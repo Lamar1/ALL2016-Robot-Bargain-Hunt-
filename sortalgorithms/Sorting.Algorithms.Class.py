@@ -9,6 +9,7 @@ class SortAlgorithms:
                 if (_List4Table[j])[0] > (_List4Table[j+1])[0]:
                     _List4Table[j], _List4Table[j+1] = _List4Table[j+1], _List4Table[j]
         return _List4Table
+        TreeviewItemTable()
 
     def bubbleSortReverse():
     #Function to sort a list into reverse alphabetical/numerical order using Bubble Sort algorithm
@@ -18,6 +19,7 @@ class SortAlgorithms:
                 if (_List4Table[j])[0] < (_List4Table[j+1])[0]:
                     _List4Table[j], _List4Table[j+1] = _List4Table[j+1], _List4Table[j]
         return _List4Table
+        TreeviewItemTable()
 
 
     def insertionSort():
@@ -31,6 +33,7 @@ class SortAlgorithms:
                 i -= 1
             _ProdPrice[i] = comparisonValue
         return _ProdPrice
+        TreeviewSortByPrice()
 
     def insertionSortReverse():
         #Used to sort by price
@@ -43,6 +46,7 @@ class SortAlgorithms:
                 i -= 1
             _ProdPrice[i] = comparisonValue
         return _ProdPrice
+        TreeviewSortByPrice()
 
 
     def quickSort():
@@ -63,6 +67,7 @@ class SortAlgorithms:
             return quickSort(lessThan) + equalTo + quickSort(greaterThan)
         else:
             return _List4Table
+        TreeviewItemTable()
 
     def quickSortReverse():
     #Function to sort a list into  reverse alphabetical/numerical order using Quick Sort algorithm
@@ -82,6 +87,7 @@ class SortAlgorithms:
             return quickSortReverse(greaterThan) + equalTo + quickSortReverse(lessThan)
         else:
             return _List4Table
+        TreeviewItemTable()
 
 import random
 import string
