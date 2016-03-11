@@ -14,15 +14,14 @@ def randomitem():
         #Creates a list of these items and prints the items selected to screen 
         for row in cur:
             ItemList.append(row)
-            print(row)
         #Creates global _list1 to create another list from ItemList (to remove the tuple)    
         global _list1
-        _list1 = [val for sublist in ItemList for val in sublist]
+        #_list1 = [val for sublist in ItemList for val in sublist]
+        _list1 = []
+        _list1 = ItemList
     #closes database connection in any circumstance
     finally:
             con.close()
 #calls function and prints converted list
-randomitem()
-print(_list1)
     
                         
