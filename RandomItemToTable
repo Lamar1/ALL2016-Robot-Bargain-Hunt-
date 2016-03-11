@@ -1,14 +1,14 @@
-
 def RandomItemToTable():
     #Creates _List4Table (contains product names that will be added to treeview basket) _ProdPrice adds price to treeview
     global _List4Table, _ProdPrice
+    _ProdPrice = []
     _List4Table = []
     #Creates ConversionList with a random entry from _list1
-    ConversionList= random.choice((_list1))
+    ConversionList= random.choice(_list1)
     #Creates a list with just the product name through slicing
-    _ConversionList1 = ConversionList[::2] 
+    _ConversionList1 = str(ConversionList[0]) 
     #Creates a list with just the product price through slicing
-    _ConversionList2 = ConversionList[1::2] 
+    _ConversionList2 = str(_List4TabConversionList[1]) 
     print(ConversionList)
     #Adds the product name to _List4Table
     _List4Table.append(_ConversionList1)
