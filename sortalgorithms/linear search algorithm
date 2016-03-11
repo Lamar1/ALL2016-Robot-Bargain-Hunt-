@@ -1,0 +1,18 @@
+__author__ = "Daniel"
+
+ def linearSearch (Items):
+     found = False
+     pos = 0
+     while pos < len(_List4Table) and not found:
+         if List[pos] == Items:
+             found = True
+             pos = pos + 1
+         return foundItem
+ 
+ List = ["Lima Beans", "Monkfish", "Apple Butter"]
+ Item = "Apple"
+ isFound = linearSearch(Items)
+ if isFound:
+     print ("Item is in our Store")
+ else:
+     print ("Item is not in our Store")
