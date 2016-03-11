@@ -8,8 +8,7 @@ class SortAlgorithms:
             for j in range(len(_List4Table) - 1):
                 if (_List4Table[j])[0] > (_List4Table[j+1])[0]:
                     _List4Table[j], _List4Table[j+1] = _List4Table[j+1], _List4Table[j]
-        return _List4Table
-        TreeviewItemTable()
+        return _List4Table, TreeviewItemTable()
 
     def bubbleSortReverse():
     #Function to sort a list into reverse alphabetical/numerical order using Bubble Sort algorithm
@@ -18,8 +17,7 @@ class SortAlgorithms:
             for j in range(len(_List4Table) - 1):
                 if (_List4Table[j])[0] < (_List4Table[j+1])[0]:
                     _List4Table[j], _List4Table[j+1] = _List4Table[j+1], _List4Table[j]
-        return _List4Table
-        TreeviewItemTable()
+        return _List4Table, TreeviewItemTable()
 
 
     def insertionSort():
@@ -32,8 +30,7 @@ class SortAlgorithms:
                 _ProdPrice[i] = _ProdPrice[i-1]
                 i -= 1
             _ProdPrice[i] = comparisonValue
-        return _ProdPrice
-        TreeviewSortByPrice()
+        return _ProdPrice, TreeviewSortByPrice()
 
     def insertionSortReverse():
         #Used to sort by price
@@ -45,8 +42,7 @@ class SortAlgorithms:
                 _ProdPrice[i] = _ProdPrice[i-1]
                 i -= 1
             _ProdPrice[i] = comparisonValue
-        return _ProdPrice
-        TreeviewSortByPrice()
+        return _ProdPrice, TreeviewSortByPrice()
 
 
     def quickSort():
@@ -66,8 +62,7 @@ class SortAlgorithms:
                     equalTo.append(_List4Table[i])
             return quickSort(lessThan) + equalTo + quickSort(greaterThan)
         else:
-            return _List4Table
-        TreeviewItemTable()
+            return _List4Table,  TreeviewItemTable()
 
     def quickSortReverse():
     #Function to sort a list into  reverse alphabetical/numerical order using Quick Sort algorithm
@@ -86,10 +81,4 @@ class SortAlgorithms:
                     equalTo.append(_List4Table[i])
             return quickSortReverse(greaterThan) + equalTo + quickSortReverse(lessThan)
         else:
-            return _List4Table
-        TreeviewItemTable()
-
-import random
-import string
-exampleList = [random.choice(string.ascii_uppercase) for i in range(10)]
-print(SortAlgorithms.bubbleSortReverse(exampleList))
+            return _List4Table, TreeviewItemTable()
