@@ -24,7 +24,13 @@ TODO: Write history
 
 ## Credits
 
-TODO: Write credits
+Callum Storey
+Lamar Gould
+Ryan Leake
+Daniel Hebron
+Nick Coupland
+Narmin Anadif
+
 
 ## License
 
