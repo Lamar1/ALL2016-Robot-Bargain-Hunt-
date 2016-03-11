@@ -42,3 +42,7 @@ def items():
 
     finally:
             con.close()
+if __name__ == "__main__":
+    items()
+    app = listbox()
+    app.mainloop()
