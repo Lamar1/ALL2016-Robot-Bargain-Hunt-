@@ -1,3 +1,5 @@
+__author__ "Daniel"
+
 def bucketsort( A ):
   code = hashing( A )
   buckets = [list() for _ in range( code[1] )]
