@@ -4,12 +4,16 @@ import tkinter as tk
 from tkinter import Tk, Button,ttk
 import time
 from expanded_basket import ExpandedBasket
+from sortingclass import SortAlgorithms
 from random import randint
 import random
 import sqlite3 as sql
 global tree
+global algorithm
+algorithm = 0
 #DELETE TABLE EXAMPLE '_List4Table BEFORE FINAL IMPLEMENTATION
 #CALL TreeviewItemTable() AFTER ITEM COLLECTION
+
 
 
 '''
@@ -37,12 +41,14 @@ class MainInterface:
         
         self.tree = ttk.Treeview(self.top)
 
+        self.SC = SortAlgorithms()
+    
+
         def frames(self):
             '''Create and place frames'''
             self.frameMenu = Frame(self.root, width=225, height = 600, background="royalblue")
             self.frameMenu.grid(row=0, column=1, padx=0, pady=0, sticky="nes")
 
-    
             self.framePlaceholder = Frame(self.root, width=200, height = 200, background="white")
             self.framePlaceholder.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.46)
 
@@ -52,12 +58,18 @@ class MainInterface:
             self.frameTimer = Frame(self.root, width=200, height = 100, background="white")
             self.frameTimer.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.25)
 
+            self.frameSelect = Frame(self.root, width=200, height=200, background="white")
+            self.frameSelect.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.730)
+
             self.lineframe2 = Frame(self.root, width=200, height = 1, background="lightgrey")
             self.lineframe2.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.371)
 
             self.lineframe3 = Frame(self.root, width=200, height = 1, background="lightgrey")
             self.lineframe3.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.222)
-      
+
+            self.lineframe4 = Frame(self.root, width=200, height=1, background="lightgrey")
+            self.lineframe4.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.64)
+
 
         def buttons(self):
             '''Create and place buttons'''
@@ -73,7 +85,27 @@ class MainInterface:
             self.button3 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortQuantity())
             self.button3.place(anchor="c", relx=0.585, rely=0.7)
 
-            
+
+            def sel():
+               print("You selected the option " + str(var.get()))
+               algorithm = str(var.get())
+               algo(algorithm)
+
+            var = IntVar()
+            R1 = Radiobutton(self.frameSelect, text="Quick sort", variable=var, value=1,
+                  command=sel, background="white")
+            R1.place(anchor="c", relx=0.220, rely=0.35)
+
+            R1.invoke()
+
+            R2 = Radiobutton(self.frameSelect, text="Bubble sort", variable=var, value=2,
+                  command=sel, background="white")
+            R2.place(anchor="c", relx=0.23, rely=0.55)
+
+            R3 = Radiobutton(self.frameSelect, text="Insertion sort", variable=var, value=3,
+                  command=sel, background="white")
+            R3.place(anchor="c", relx=0.25, rely=0.75)
+
             
             #Creates the related timer buttons & adds them to 'frameTimer',_Button1-3 is the duration selected in seconds
             self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerHandler(a))
@@ -83,7 +115,13 @@ class MainInterface:
             self._button1.place(anchor="c", relx=0.15, rely=0.87)
             self._button2.place(anchor="c", relx=0.50, rely=0.87)
             self._button3.place(anchor="c", relx=0.85, rely=0.87)
-             
+
+
+        def algo(algo):
+            print (algo)
+            global algorithm
+            algorithm = algo
+            
 
         def labels(self):
             '''Create and place labels'''
@@ -106,7 +144,8 @@ class MainInterface:
             self.quantityLabel = Label(self.framePlaceholder, text="Quantity", background="white", fg="mediumblue")
             self.quantityLabel.place(anchor="c", relx=0.150, rely=0.7)
 
-            
+            self.sortingLabel = Label(self.frameSelect, text="Sorting algorithms", background="white", fg="mediumblue")
+            self.sortingLabel.place(anchor="c", relx=0.475, rely=0.07)
 
             
         def map(self):
@@ -163,9 +202,52 @@ class MainInterface:
             if self.button1["text"]=="v":
                 self.button1["text"] = "^"
                 #Sort descending
+
+                if algorithm == "1":
+                    print ("Quick sort (descending)")
+                    #self.SC.quickSortReverse()
+
+
+                    #Function to sort a list into  reverse alphabetical/numerical order using Quick Sort algorithm
+                    tree.delete(*tree.get_children())
+                    lessThan = []
+                    equalTo = []
+                    greaterThan = []
+                    if len(_List4Table) > 1:
+                        pivot = _List4Table[0]
+                        for i in range(len(_List4Table)):
+                            if _List4Table[i] < pivot:
+                                lessThan.append(_List4Table[i])
+                            elif _List4Table[i] > pivot:
+                                greaterThan.append(_List4Table[i])
+                            else:
+                                equalTo.append(_List4Table[i])
+                        return quickSortReverse(greaterThan) + equalTo + quickSortReverse(lessThan)
+                    else:
+                        return _List4Table
+
+
+                    
+
+                elif algorithm == "2":
+                    print ("Bubble sort (descending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (descending)")
+                
             elif self.button1["text"]=="^":
                 self.button1["text"]="v"
                 #Sort ascending
+
+                if algorithm == "1":
+                    print ("Quick sort (ascending)")
+
+                elif algorithm == "2":
+                    print ("Bubble sort (ascending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (ascending)")
+                    
 
         def sortPrice():
             '''TODO: Sorting code'''
@@ -174,10 +256,30 @@ class MainInterface:
             if self.button2["text"]=="v":
                 self.button2["text"] = "^"
                 #Sort descending
+
+                if algorithm == "1":
+                    print ("Quick sort (descending)")
+
+                elif algorithm == "2":
+                    print ("Bubble sort (descending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (descending)")
+
+                
             elif self.button2["text"]=="^":
                 self.button2["text"]="v"
                 #Sort ascending
 
+                if algorithm == "1":
+                    print ("Quick sort (ascending)")
+
+                elif algorithm == "2":
+                    print ("Bubble sort (ascending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (ascending)")
+                
 
         def sortQuantity():
             '''TODO: Sorting code'''
@@ -186,12 +288,31 @@ class MainInterface:
             if self.button3["text"]=="v":
                 self.button3["text"] = "^"
                 #Sort descending
+
+                if algorithm == "1":
+                    print ("Quick sort (descending)")
+
+                elif algorithm == "2":
+                    print ("Bubble sort (descending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (descending)")
+
+                
             elif self.button3["text"]=="^":
                 self.button3["text"]="v"
                 #Sort ascending
+
+                if algorithm == "1":
+                    print ("Quick sort (ascending)")
+
+                elif algorithm == "2":
+                    print ("Bubble sort (ascending)")
+
+                elif algorithm == "3":
+                    print ("Insertion sort (ascending)")
+                
             
-            
-         
         def itemCollection():
             EB = ExpandedBasket.TreeviewItemTable()
             EB.TreeviewItemTable()
