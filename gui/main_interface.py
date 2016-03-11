@@ -10,10 +10,6 @@ import sqlite3 as sql
 from collections import defaultdict, deque
 from sys import argv
 global tree
-#DELETE TABLE EXAMPLE '_List4Table BEFORE FINAL IMPLEMENTATION
-#CALL TreeviewItemTable() AFTER ITEM COLLECTION
-
-
 '''
 [TODO]
 *Implement timer
@@ -36,9 +32,9 @@ class MainInterface:
         self.root.config(background = "#FFFFFF")
         self.root.geometry("1025x800")
         self.time_str = StringVar()
-        
         self.tree = ttk.Treeview(self.top)
 
+        '''Setting up the Invidual Frames and Windows''''''RYAN'''
         def frames(self):
             '''Create and place frames'''
             self.frameMenu = Frame(self.root, width=225, height = 600, background="royalblue")
@@ -60,10 +56,15 @@ class MainInterface:
             self.lineframe3 = Frame(self.root, width=200, height = 1, background="lightgrey")
             self.lineframe3.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.222)
 
+        '''Setting up of the Main Buttons in the gui''''''RYAN'''
         def buttons(self):
             '''Create and place buttons'''
             self.distributeButton = Button(self.frameMenu, text="Distribute items", command = lambda: distributeItems(), background="royalblue", fg="white")
             self.distributeButton.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.100)
+
+            self.selectItemsButton = Button(self.frameMenu, text="Select Items", command = lambda : listbox(), background="royalblue", fg="white")
+            self.selectItemsButton.place(in_=self.frameMenu, anchor="c", relx=0.5,  rely=0.150)
+
 
             self.button1 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortName())
             self.button1.place(anchor="c", relx=0.585, rely=0.3)
@@ -85,6 +86,7 @@ class MainInterface:
             self._button2.place(anchor="c", relx=0.50, rely=0.87)
             self._button3.place(anchor="c", relx=0.85, rely=0.87)
 
+        '''Setting up of the Main Labels and also includes the search box'''
         def labels(self):
             '''Create and place labels'''
 
@@ -107,117 +109,87 @@ class MainInterface:
             self.quantityLabel.place(anchor="c", relx=0.150, rely=0.7)
 
 
-        '''Search Box'''
-        search_input = argv
+            '''Search Box'''
+            search_input = argv
 
-        """FUNCTIONS"""
+            """FUNCTIONS"""
 
-        """Function to look for items in list"""
-        def find_items ():
-            for i in list1: #Needs to be amended to the correct list box
-                searchresults.insert(END, search_input)
+            """Function to look for items in list"""
+            def find_items ():
+                for i in list1: #Needs to be amended to the correct list box
+                    searchresults.insert(END, search_input)
 
-        """SCREENS"""
+            """SCREENS"""
 
-        """Screen for the search bar, to be later implemented into the expanded basket view"""
-        root = Tk()
-        root.title("Item Searcher")
-        root.geometry('800x800')
-        root.resizable(width=FALSE, height=FALSE)
+            """Screen for the search bar, to be later implemented into the expanded basket view"""
+            root = Tk()
+            root.title("Item Searcher")
+            root.geometry('200x200')
+            root.resizable(width=FALSE, height=FALSE)
 
-        """FRAMES"""
+            """FRAMES"""
 
-        """Frame to hold: Search box, search button and quit button"""
-        controlFrame = ttk.Frame(root, height=100, width=200)
-        controlFrame.pack()
+            """Frame to hold: Search box, search button and quit button"""
+            controlFrame = ttk.Frame(root, height=100, width=200)
+            controlFrame.pack()
 
-        """Frame to show search results of find"""
-        resultsframe = ttk.Frame(root, height=00, width=200)
-        resultsframe.pack()
+            """Frame to show search results of find"""
+            resultsframe = ttk.Frame(root, height=00, width=200)
+            resultsframe.pack()
 
-        """BUTTONS AND BOXES"""
+            """BUTTONS AND BOXES"""
 
-        """Search Box"""
-        entry = Entry(controlFrame, width=30)
-        entry.pack()
+            """Search Box"""
+            entry = Entry(controlFrame, width=30)
+            entry.pack()
 
-        """Listbox for listing all results of the find"""
-        searchresults = Listbox(resultsframe, height=100, width=200)
-        searchresults.pack(fill=BOTH, expand=YES)
+            """Listbox for listing all results of the find"""
+            searchresults = Listbox(resultsframe, height=100, width=200)
+            searchresults.pack(fill=BOTH, expand=YES)
 
-        """Search button to intiate find_items"""
-        searchbutton = ttk.Button(controlFrame, text="Search", command=find_items)
-        searchbutton.pack()
+            """Search button to intiate find_items"""
+            searchbutton = ttk.Button(controlFrame, text="Search", command=find_items)
+            searchbutton.pack()
 
-        """Quit button to exit the application"""
-        quitButton = ttk.Button(controlFrame, text="Quit")
-        quitButton.pack()
-        quitButton.bind ('<ButtonPress>', lambda e: exit())
+            """Quit button to exit the application"""
+            quitButton = ttk.Button(controlFrame, text="Quit")
+            quitButton.pack()
+            quitButton.bind ('<ButtonPress>', lambda e: exit())
 
-
-
-        def items():
-            try:
-                con = sql.connect('ITEM DATABASE.sqlite')
-                cur = con.cursor()
-                cur.execute(''' SELECT product FROM items;''')
-                ItemList = []
-
-                for row in cur:
-                    ItemList.append(row)
-                    print(row)
-
-                global list1
-                list1 = [val for sublist in ItemList for val in sublist]
-
-            finally:
-                    con.close()
-
+        '''A function to retrieve SQL database information and convert to a list removing any tuples''''''LAMAR'''
         def randomitem():
             try:
                 #connects to the item database
                 con = sql.connect('ITEM DATABASE.sqlite')
                 cur = con.cursor()
                 #selects 9 random products from items table in database
-                cur.execute(''' SELECT product FROM items ORDER BY
+                cur.execute(''' SELECT product,Price FROM items ORDER BY
                                 RANDOM() LIMIT 9;''')
                 ItemList = []
                 #Creates a list of these items and prints the items selected to screen
                 for row in cur:
                     ItemList.append(row)
-                    print(row)
                 #Creates global _list1 to create another list from ItemList (to remove the tuple)
                 global _list1
-                _list1 = [val for sublist in ItemList for val in sublist]
-                #closes database connection in any circumstance
+                #_list1 = [val for sublist in ItemList for val in sublist]
+                _list1 = []
+                _list1 = ItemList
+            #closes database connection in any circumstance
             finally:
                     con.close()
-                #calls function and prints converted list
 
-        def AddProduct2Listbox():
-            root = Tk()
-            _Listbox1 = Listbox(root)
-            global pos
-            pos = 0
-            for product in list1:
-                pos = pos+1
-                _Listbox1.insert(pos,product)
-                _Listbox1.pack()
-                root.mainloop
-
-            items()
-            AddProduct2Listbox()
-
+        '''Calls function and prints converted list''''''LAMAR'''
         def RandomItemToTable():
             #Creates _List4Table (contains product names that will be added to treeview basket) _ProdPrice adds price to treeview
-            global _List4Table, _ProdPrice, _list1
+            global _List4Table, _ProdPrice
+            _ProdPrice = []
             _List4Table = []
             #Creates ConversionList with a random entry from _list1
-            ConversionList= random.choice((_list1))
+            ConversionList= random.choice(_list1)
             #Creates a list with just the product name through slicing
-            _ConversionList1 = ConversionList[::2]
+            _ConversionList1 = str(ConversionList[0])
             #Creates a list with just the product price through slicing
-            _ConversionList2 = ConversionList[1::2]
+            _ConversionList2 = str(ConversionList[1])
             print(ConversionList)
             #Adds the product name to _List4Table
             _List4Table.append(_ConversionList1)
@@ -228,6 +200,29 @@ class MainInterface:
             #Prints the contents of _List4Table to IDLE
             print(_List4Table)
 
+        '''Something to do with listbox''''''LAMAR'''
+        def items():
+            try:
+                con = sql.connect('ITEM DATABASE.sqlite')
+                cur = con.cursor()
+                cur.execute(''' SELECT product FROM items;''')
+                ItemList = []
+
+                for row in cur:
+                    ItemList.append(row)
+
+                global list1
+                list1 = [val for sublist in ItemList for val in sublist]
+
+            finally:
+                    con.close()
+
+            if __name__ == "__main__":
+                items()
+                app = listbox()
+                app.mainloop()
+
+        '''Creates map, creates obstacles, sets up controls for user input''''''CALLUM'''
         def map(self):
             self.canvas = Canvas(self.frameGame,width = 800, height = 800, bg = 'black')
             self.canvas.pack(expand = YES, fill = BOTH)
@@ -286,6 +281,7 @@ class MainInterface:
                 if 2<= (objectsTouching[-2]) <= 13:
                     print('You have hit the items!!!')
                     RandomItemToTable()
+                    TreeviewItemTable()
                 if 14<= (objectsTouching[-2]) <= 29:
                     print('You have hit the wall!!!')
 
@@ -334,7 +330,7 @@ class MainInterface:
             self.canvas.bind('<Down>', downKey)
             self.canvas.focus_set()
 
-        '''Below Code for dijkstras algorithm'''
+        ''' Code for dijkstras algorithm''''''CALLUM'''
         class Graph(object):
             def __init__(self):
                 self.nodes = set()
@@ -349,127 +345,113 @@ class MainInterface:
                 self.edges[to_node].append(from_node)
                 self.distances[(from_node, to_node)] = distance
 
-        def dijkstra(graph, initial):
-            visited = {initial: 0}
-            path = {}
+            def onObjectClick(event):
+                ('Got object click', event.x, event.y)
+                (event.widget.find_closest(event.x, event.y))
 
-            nodes = set(graph.nodes)
+            def dijkstra(graph, initial):
+                visited = {initial: 0}
+                path = {}
 
-            while nodes:
-                min_node = None
-                for node in nodes:
-                    if node in visited:
-                        if min_node is None:
-                            min_node = node
-                        elif visited[node] < visited[min_node]:
-                            min_node = node
-                if min_node is None:
-                    break
+                nodes = set(graph.nodes)
 
-                nodes.remove(min_node)
-                current_weight = visited[min_node]
+                while nodes:
+                    min_node = None
+                    for node in nodes:
+                        if node in visited:
+                            if min_node is None:
+                                min_node = node
+                            elif visited[node] < visited[min_node]:
+                                min_node = node
+                    if min_node is None:
+                        break
 
-                for edge in graph.edges[min_node]:
-                    try:
-                        weight = current_weight + graph.distances[(min_node, edge)]
-                    except:
-                        continue
-                    if edge not in visited or weight < visited[edge]:
-                        visited[edge] = weight
-                        path[edge] = min_node
+                    nodes.remove(min_node)
+                    current_weight = visited[min_node]
 
-            return visited, path
+                    for edge in graph.edges[min_node]:
+                        try:
+                            weight = current_weight + graph.distances[(min_node, edge)]
+                        except:
+                            continue
+                        if edge not in visited or weight < visited[edge]:
+                            visited[edge] = weight
+                            path[edge] = min_node
 
-        def shortest_path(graph, origin, destination):
-            visited, paths = dijkstra(graph, origin)
-            full_path = deque()
-            _destination = paths[destination]
+                return visited, path
 
-            while _destination != origin:
-                full_path.appendleft(_destination)
-                _destination = paths[_destination]
+            def shortest_path(graph, origin, destination):
+                visited, paths = dijkstra(graph, origin)
+                full_path = deque()
+                _destination = paths[destination]
 
-            full_path.appendleft(origin)
-            full_path.append(destination)
+                while _destination != origin:
+                    full_path.appendleft(_destination)
+                    _destination = paths[_destination]
 
-            return visited[destination], list(full_path)
+                full_path.appendleft(origin)
+                full_path.append(destination)
 
-        if __name__ == '__main__':
-            graph = Graph()
+                return visited[destination], list(full_path)
 
+            #Depth first search
+            def DFS(graph, start):
+                path = []
+                queue = [start]
+                while queue:
+                    v = queue.pop(0)
+                    if v not in path:
+                        path = path + [v]
+                        queue = graph[v] + queue
+                return path
 
-        """
-        Binary search algorithm (Depth-First and Breadth-First)
-        """
+            #Breadth first search
+            def BFS(graph, start):
+                path = []
+                queue = [start]
+                while queue:
+                    v = queue.pop(0)
+                    if v not in path:
+                        path = path + [v]
+                        queue = queue + graph[v]
+                return path
+            def graph():
+                graph = (
 
-        #Depth first search
-        def DFS(graph, start):
-            path = []
-            queue = [start]
-            while queue:
-                v = queue.pop(0)
-                if v not in path:
-                    path = path + [v]
-                    queue = graph[v] + queue
-            return path
+                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], #1
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1], #2
+                        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1], #3
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1], #4
+                        [1,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1], #5
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #6
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,1], #7
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,1], #8
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #9
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1], #10
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #11
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #12
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #13
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #14
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #15
+                        [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #16
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #17
+                        [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #18
+                        [1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1], #19
+                        [1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1], #20
+                        [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1], #21
+                        [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1], #22
+                        [1,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,1,1,0,0,1,1,0,0,1], #23
+                        [1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1], #24
+                        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]  #25
 
-        #Breadth first search
-        def BFS(graph, start):
-            path = []
-            queue = [start]
-            while queue:
-                v = queue.pop(0)
-                if v not in path:
-                    path = path + [v]
-                    queue = queue + graph[v]
-            return path
+                        )
 
-        graph = (
-
-                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], #1
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1], #2
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1], #3
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1], #4
-                [1,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1], #5
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #6
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,1], #7
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,1], #8
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #9
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1], #10
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #11
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #12
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #13
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #14
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], #15
-                [1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #16
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1], #17
-                [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1], #18
-                [1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1], #19
-                [1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1], #20
-                [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1], #21
-                [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1], #22
-                [1,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,1,1,0,0,1,1,0,0,1], #23
-                [1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1], #24
-                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]  #25
-
-                )
-
-
-
-        #print ('DFS path: ', DFS(graph, 'A'))
-        #print ('BFS path: ', BFS(graph, 'A'))
-
-
-
-
-
-
-
-
+        '''Timer Related Code''''''LAMAR'''
         def timerHandler(duration):
             self.duration = duration
             self.timerActiveLabel['text'] = duration // 60, "Minutes"
 
+        '''Code to distribute items across the map''''''RYAN'''
         def distributeItems():
             '''TODO: Randomly places items within map & start timer'''
             sys.stdout.write("Distribute pressed \n")
@@ -501,9 +483,9 @@ class MainInterface:
                 else:
                     track.insert(x,rnd)
                     self.canvas.create_image(tup[rnd], image = self.item)
-
             randomitem()
 
+        '''Code to Sort by product name''''''NICK'''
         def sortName():
             '''TODO: Sorting code'''
             sys.stdout.write("Name sort pressed \n")
@@ -515,6 +497,7 @@ class MainInterface:
                 self.button1["text"]="v"
                 #Sort ascending
 
+        '''Code to Sort by price''''''NICK'''
         def sortPrice():
             '''TODO: Sorting code'''
             sys.stdout.write("Price sort pressed \n")
@@ -526,6 +509,7 @@ class MainInterface:
                 self.button2["text"]="v"
                 #Sort ascending
 
+        '''Code to Sort by quantity''''''NICK'''
         def sortQuantity():
             '''TODO: Sorting code'''
             sys.stdout.write("Quantity sort pressed \n")
@@ -537,10 +521,12 @@ class MainInterface:
                 self.button3["text"]="v"
                 #Sort ascending
 
+        '''Item Collection Code'''
         def itemCollection():
             EB = ExpandedBasket.TreeviewItemTable()
             EB.TreeviewItemTable()
 
+        '''Sets up tje expanded basket table'''
         def table(self):
             self.tree["columns"]=("Price","Quantity","Category")
             self.tree.column("Price", width=200 )
@@ -553,11 +539,8 @@ class MainInterface:
 
             global _List4Table
 
+        '''Sets up treeview table'''
         def TreeviewItemTable():
-
-        #Example table
-            _List4Table =['Grapes','Salmon','Bacon','Wine','Celery','Duck']
-                
         #for loop iterates over all items contained in _List4Table 
         #_List4Table contains items collected in game 
             for prodname in _List4Table:
@@ -588,12 +571,36 @@ class MainInterface:
         map(self)
         table(self)
         self.tree.pack()
-        
-        
+'''Contains code for the listbox''''''Lamar'''
+class listbox(Tk):
+            #*args is used as the amount pf arguments are unknown
+            #**kwargs handles named arguments not defined
+            def __init__(self, *args, **kwargs):
+                Tk.__init__(self, *args, **kwargs)
+                _listbox = Listbox(self)
+                for product in list1:
+                    _listbox.insert(-1,product)
+                #Binds an event to Double Click on Left mouse button
+                #Event is doubleclick function
+                _listbox.bind("<Double-Button-1>", self.DoubleClick)
+                _listbox.pack(side="top", fill="both", expand=True)
+                #retrieves the cursors selection after a double click
+            def DoubleClick(self, event):
+                widget = event.widget
+                selection=widget.curselection()
+                #value is = to the item last clicked by user
+                value = widget.get(selection[0])
+                #Stores value into _list2
+                #_list2 is all items retrievable by robot
+                global _list2
+                _list2 = []
+                _list2.append(value)
+                print(value,"was added to search items")
+
 def main():
     root = Tk()
     mainInterface = MainInterface(root)
     root.mainloop()
 
 if __name__ == '__main__':
-        sys.exit(main())
+        sys.exit(main())                     
