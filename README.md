@@ -24,11 +24,11 @@ TODO: Write history
 
 ## Credits
 
-Callum Storey
-Lamar Gould
-Ryan Leake
-Daniel Hebron
-Nick Coupland
+Callum Storey, 
+Lamar Gould, 
+Ryan Leake, 
+Daniel Hebron, 
+Nick Coupland, 
 Narmin Anadif
 
 
