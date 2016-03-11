@@ -1,5 +1,3 @@
-class SortAlgorithms:
-
     def bubbleSort():
     #Function to sort a list into alphabetical/numerical order using Bubble Sort algorithm
         #Removes all entries from tree view
