@@ -1,31 +1,24 @@
-import random
-import sqlite3 as sql
-from tkinter import *
-author = "Lamar Gould"
-class listbox(Tk):
-    #*args is used as the amount of arguments are unknown
-    #**kwargs handles named arguments not defined
-    def __init__(self, *args, **kwargs):
-        Tk.__init__(self, *args, **kwargs)
-        _listbox = Listbox(self)
-        for product in list1:
-            _listbox.insert(-1,product)
-        #Binds an event to Double Click on Left mouse button
-        #Event is doubleclick function
-        _listbox.bind("<Double-Button-1>", self.DoubleClick)
-        _listbox.pack(side="top", fill="both", expand=True)
-        #retrieves the cursors selection after a double click
-    def DoubleClick(self, event):
-        widget = event.widget
-        selection=widget.curselection()
-        #value is = to the item last clicked by user
-        value = widget.get(selection[0])
-        #Stores value into _list2
-        #_list2 is all items retrievable by robot
-        global _list2
-        _list2 = []
-        _list2.append(value)
-        print(value,"was added to search items")
+def DoubleClick(event):
+    widget = event.widget
+    selection=widget.curselection()
+    #value is = to the item last clicked by user
+    value = widget.get(selection[0])
+    #Stores value into _list2
+    #_list2 is all items retrievable by robot
+    global _list2
+    _list2 = []
+    _list2.append(value)
+    print(value,"was added to search items")
+
+
+_listbox = Listbox(root)
+for product in list1:
+    _listbox.insert(-1,product)
+#Binds an event to Double Click on Left mouse button
+#Event is doubleclick function
+_listbox.bind("<Double-Button-1>", DoubleClick)
+_listbox.pack(side="top", fill="both", expand=True)
+#retrieves the cursors selection after a double click
 
 def items():
     try:
@@ -42,7 +35,3 @@ def items():
 
     finally:
             con.close()
-if __name__ == "__main__":
-    items()
-    app = listbox()
-    app.mainloop()
