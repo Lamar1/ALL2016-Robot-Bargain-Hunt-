@@ -2,21 +2,19 @@
 Linear seach algorithm
 """
 
-__author__ = "Ryan"
-
-def linearSearch (myItem):
-    foundItem = False
+def linear(item):
+    locatedItem = False
     pos = 0
-    while pos < len(_List4Table) and not foundItem:
-        if myList[pos] == myItem:
-            foundItem = True
+    while pos < len(_List4Table) and not locatedItem:
+        if myList[pos] == item:
+            locatedItem = True
             pos = pos + 1
-        return foundItem
+        return locatedItem
 
-theList = ["apple", "banana", "orange"]
-theItem = "apple"
-isFound = linearSearch(theItem)
+itemList = ["Caviar", "Coconut", "Grapes". "Potatoes", "Apple Butter", "Clams"]
+item = "Grapes"
+isFound = linear(item)
 if isFound:
-    print ("Found")
+    print ("Item is in our store.")
 else:
-    print ("Not found")
+    print ("This item is not in our store.")
