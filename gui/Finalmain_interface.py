@@ -38,9 +38,13 @@ class MainInterface:
         self.root = root
         self.top = Toplevel()
         self.top.title("Collected items")
+        #Prevents window from being resized
         self.root.resizable(width=FALSE, height=FALSE)
+        #Sets window title
         self.root.wm_title("Python ALL Project")
+        #Sets window background to white
         self.root.config(background = "#FFFFFF")
+        #Sets the window size
         self.root.geometry("1025x800")
         self.time_str = StringVar()
         #self.tree = ttk.Treeview(self.top)
@@ -50,22 +54,27 @@ class MainInterface:
         '''Setting up the Invidual Frames and Windows''''''RYAN'''
         def frames(self):
             '''Create and place frames'''
+            #Frame to hold right menu 
             self.frameMenu = Frame(self.root, width=225, height = 600, background="royalblue")
             self.frameMenu.grid(row=0, column=1, padx=0, pady=0, sticky="nes")
-
-    
+            
+            #Frame that holds sorting options
             self.framePlaceholder = Frame(self.root, width=200, height = 200, background="white")
             self.framePlaceholder.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.46)
-
+            
+            #Frame in which the game is displayed
             self.frameGame = Frame(self.root, width=900, height = 800, background="white")
             self.frameGame.grid(row=0, column=0, padx=0, pady=0, sticky="wnes" )
-
+            
+            #Frame to hold timer
             self.frameTimer = Frame(self.root, width=200, height = 100, background="white")
             self.frameTimer.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.25)
-
+            
+            #Frame that holds the radio buttons that allow the user to choose which sorting algorithm to use
             self.frameSelect = Frame(self.root, width=200, height=200, background="white")
             self.frameSelect.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.730)
-
+            
+            #Futher frames are used for decorational purposes only
             self.lineframe2 = Frame(self.root, width=200, height = 1, background="lightgrey")
             self.lineframe2.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.371)
 
@@ -74,7 +83,6 @@ class MainInterface:
 
             self.lineframe4 = Frame(self.root, width=200, height=1, background="lightgrey")
             self.lineframe4.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.64)
-
 
         '''Setting up of the Main Buttons in the gui''''''RYAN'''#and also includes sel def
         def buttons(self):
@@ -94,8 +102,6 @@ class MainInterface:
             self.button3 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortQuantity())
             self.button3.place(anchor="c", relx=0.585, rely=0.7)
 
-            
-            
             #Creates the related timer buttons & adds them to 'frameTimer',_Button1-3 is the duration selected in seconds
             self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerHandler(a))
             self._button2 = Button(self.frameTimer, text='2 minutes', command= lambda b=120: timerHandler(b))
@@ -105,13 +111,14 @@ class MainInterface:
             self._button2.place(anchor="c", relx=0.50, rely=0.87)
             self._button3.place(anchor="c", relx=0.85, rely=0.87)
 
-
             def sel():
+                #Called to modify the global variable 'algorithm'
                 print("You selected the option " + str(var.get()))
                 algorithm = str(var.get())
                 algo(algorithm)
 
             var = IntVar()
+            #A series of radio buttons tat allow the user to select different sorting algoirthms
             R1 = Radiobutton(self.frameSelect, text="Quick sort", variable=var, value=1,
                   command=sel, background="white")
 
