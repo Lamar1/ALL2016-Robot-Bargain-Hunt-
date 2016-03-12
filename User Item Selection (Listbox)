@@ -1,3 +1,4 @@
+
 def DoubleClick(event):
     widget = event.widget
     selection=widget.curselection()
@@ -9,6 +10,12 @@ def DoubleClick(event):
     _list2 = []
     _list2.append(value)
     print(value,"was added to search items")
+
+for row in cur:
+    ItemList.append(row)
+    
+global list1
+list1 = [val for sublist in ItemList for val in sublist]
 
 
 _listbox = Listbox(root)
@@ -35,3 +42,6 @@ def items():
 
     finally:
             con.close()
+if __name__ == "__main__":
+    items()
+    root.mainloop()
