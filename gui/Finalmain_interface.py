@@ -504,6 +504,11 @@ class MainInterface:
             self.duration = duration
             self.timerActiveLabel['text'] = duration // 60, "Minutes"
 
+        '''  
+        
+        INDIVIDUAL FEATURE - Ryan -----------------------------------------------------------------------------------------------------
+        
+        '''
         '''Code to distribute items across the map''''''RYAN'''
         def distributeItems():
             sys.stdout.write("Distribute pressed \n")
@@ -546,6 +551,11 @@ class MainInterface:
                     self.canvas.create_image(tup[rnd], image = self.item)
             randomitem()
         global tree
+        
+        '''
+        -------------------------------------------------------------------------------------------------------------------------------
+        '''
+        
 
 
         def bubbleSort():
