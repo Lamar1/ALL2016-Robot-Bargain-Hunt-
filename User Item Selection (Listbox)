@@ -1,3 +1,6 @@
+con1 = sql.connect('ITEM DATABASE.sqlite')
+cur1 = con1.cursor()
+cur1.execute(''' SELECT product FROM items;''')
 global ItemList5
 ItemList5 = []
 
@@ -13,7 +16,7 @@ def DoubleClick(event):
     _list2.append(value)
     print(value,"was added to search items")
 
-for row in cur:
+for row in cur1:
     ItemList5.append(row)
 global list1
 list1 = [val for sublist in ItemList5 for val in sublist]
