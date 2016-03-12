@@ -22,13 +22,8 @@ list1= []
 algorithm = 0
 
 '''
-[TODO]
-*Implement timer
-*Fill framePlaceholder
 [NOTES]
 Must include the resource file 'arrows.gif' and expanded_basket.py in the same directory to run correctly.
-
-
 '''
 
 class MainInterface:
@@ -92,13 +87,16 @@ class MainInterface:
 
             self.basketButton = Button(self.frameMenu, text="Basket View", command = lambda: distributeItems(), background="royalblue", fg="white")
             self.basketButton.place(in_=self.frameMenu, anchor="c", relx=0.5, rely=0.135)
-
+            
+            #Button that allows user to sort by name
             self.button1 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortName())
             self.button1.place(anchor="c", relx=0.585, rely=0.3)
 
+            #Button that allows user to sort by price
             self.button2 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortPrice())
             self.button2.place(anchor="c", relx=0.585, rely=0.5)
 
+            #Button that allows user to sort by quantity
             self.button3 = Button(self.framePlaceholder, text="v", background="white", fg="black", command = lambda: sortQuantity())
             self.button3.place(anchor="c", relx=0.585, rely=0.7)
 
@@ -106,7 +104,6 @@ class MainInterface:
             self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerHandler(a))
             self._button2 = Button(self.frameTimer, text='2 minutes', command= lambda b=120: timerHandler(b))
             self._button3 = Button(self.frameTimer, text='4 minutes', command= lambda c=240: timerHandler(c))
-            
             self._button1.place(anchor="c", relx=0.15, rely=0.87)
             self._button2.place(anchor="c", relx=0.50, rely=0.87)
             self._button3.place(anchor="c", relx=0.85, rely=0.87)
@@ -118,7 +115,7 @@ class MainInterface:
                 algo(algorithm)
 
             var = IntVar()
-            #A series of radio buttons tat allow the user to select different sorting algoirthms
+            #A series of radio buttons that allow the user to select different sorting algoirthms
             R1 = Radiobutton(self.frameSelect, text="Quick sort", variable=var, value=1,
                   command=sel, background="white")
 
@@ -136,10 +133,8 @@ class MainInterface:
 
             R3.place(anchor="c", relx=0.25, rely=0.75)
 
-
-
-
         def algo(algo):
+            '''Used to modify the global variable 'algorithm''''
             print (algo)
             global algorithm
             algorithm = algo
@@ -511,10 +506,11 @@ class MainInterface:
 
         '''Code to distribute items across the map''''''RYAN'''
         def distributeItems():
-            '''TODO: Randomly places items within map & start timer'''
             sys.stdout.write("Distribute pressed \n")
 
+            #Sets item variable as a PhotoImage variable and alocates it the 'item.png' resource file
             self.item = PhotoImage(file = 'item.png')
+            #A tuple that holds 100 different coordinates of possible item locations
             tup = ((105,105),(105,130),(105, 155),(105, 180),(130, 105),(155, 105),(180, 105),(180, 130),(180, 155)
                    ,(180, 180),(155, 180),(130, 180),(105, 265),(105, 290),(105, 315),(105, 340),(130, 340)
                    ,(155, 340),(180, 340),(180, 290),(180, 265),(180, 315),(155, 265),(130, 265),(105, 425)
@@ -529,13 +525,20 @@ class MainInterface:
                    ,(565, 675),(565, 700),(565, 725),(650, 650),(650, 675),(650, 700),(650, 725),(695, 650)
                    ,(695, 675),(695, 700),(695, 725))
 
+            #An array to track which coordinates have already been added to the map
             track = []
+            #For loop to randomly position 20 different items on the map
             for x in range (20):
+                #Random number generated using python random module (range 0-99)
                 rnd = randint(0,99)
+                #An if statement to check if the random number and therefore associated cooridnates have already been used
                 if rnd in track:
+                    #A while loop to generate random numbers until an un allocated coordinate is found
                     while rnd in track:
                         rnd = randint(0,99)
+                    #Adds random number to track array
                     track.insert(x,rnd)
+                    #Places image onto map in generated coordinates
                     self.canvas.create_image(tup[rnd], image = self.item)
                     
                 else:
@@ -631,7 +634,6 @@ class MainInterface:
 
         '''Code to Sort by product name''''''NICK'''
         def sortName():
-            '''TODO: Sorting code'''
             sys.stdout.write("Name sort pressed \n")
 
             if self.button1["text"]=="v":
@@ -684,7 +686,7 @@ class MainInterface:
 
         '''Code to Sort by price''''''NICK'''
         def sortPrice():
-            '''TODO: Sorting code'''
+        
             sys.stdout.write("Price sort pressed \n")
 
             if self.button2["text"]=="v":
@@ -721,7 +723,6 @@ class MainInterface:
 
         '''Code to Sort by quantity''''''NICK'''
         def sortQuantity():
-            '''TODO: Sorting code'''
             sys.stdout.write("Quantity sort pressed \n")
 
             if self.button3["text"]=="v":
@@ -823,8 +824,7 @@ class MainInterface:
                     #Closes database connection in any circumstance
                     con.close()
 
-
-            
+        '''Calls all necessary functions'''
         frames(self)
         buttons(self)
         labels(self)
