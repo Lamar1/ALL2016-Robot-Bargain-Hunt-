@@ -1,0 +1,27 @@
+class listbox():
+
+   #Initialises the actual listbox screens attributes
+    def __init__(self):
+        _listbox = Listbox(self) 
+        #MainProductList is the list with every item 
+        for product in MainProductList:
+            _listbox.insert(-1,product)
+        #Binds an event to Double Click on Left mouse button
+        #Event is doubleclick function
+        _listbox.bind("<Double-Button-1>", self.DoubleClick)
+        #packs the listbox window
+        _listbox.pack(side="top", fill="both", expand=True)
+        #retrieves the cursors selection after a double click
+    #The function that adds selected item to product in game
+    
+    def DoubleClick(self):
+        #Selection is what handles a double-click 
+        selection=widget.curselection()
+        #value is = to the item last clicked by user
+        value = widget.get(selection[0])
+        #Stores value into _list1
+        #_list1 is all items retrievable by robot
+        _list1 = []
+        _list1.append(value)
+        #Confirms what item was added to the game
+        print(value,"was added to search items")
