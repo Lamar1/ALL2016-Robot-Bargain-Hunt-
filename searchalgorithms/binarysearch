@@ -1,33 +1,41 @@
 """
 Binary search algorithm (Depth-First and Breadth-First)
 """
-
 __author__ = "Narmin"
+
+route = {'A':['A','B'], 'B':['D'], 'C':['D','C'], 'D':['D',], 'E':['E'], 'F':[]}
 
 #Breadth-first search algorithm
 def breadth(graph, start):
+    
+    #Hold list of nodes in route
     route = []
     queue = [start]
+    #While there are still items in list
     while queue:
+        #Take node out of list
         i = queue.pop(0)
         if i not in route:
+            #Add node to route
             route = route + [i]
             queue = queue + graph[i]
     return route
 
-
 #Depth-first search algorithm
 def depth(graph, start):
+   
+    #Hold list of nodes in route
     route = []
     queue = [start]
+      #While there are still items in list
     while queue:
+        #Take node out of list
         i = queue.pop(0)
         if i not in route:
+            #Add node to route
             route = route + [i]
             queue = graph[i] + queue
     return route
 
-
-route = {'A':['A','B'], 'B':['D'], 'C':['D','C'], 'D':['D'], 'E':['E'], 'F':[]}
 print ('Depth route: ', depth(graph, 'A'))
 print ('Breadth route: ', breadth(graph, 'A'))
