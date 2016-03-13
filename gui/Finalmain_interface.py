@@ -4,7 +4,6 @@ import tkinter as tk
 from tkinter import Tk, Button,ttk
 import time
 from expanded_basket import ExpandedBasket
-from sortingclass import SortAlgorithms
 from random import randint
 import random
 import sqlite3 as sql
@@ -43,7 +42,6 @@ class MainInterface:
         self.root.geometry("1025x800")
         self.time_str = StringVar()
         #self.tree = ttk.Treeview(self.top)
-        self.SC = SortAlgorithms()
         tree = ttk.Treeview(self.top)
 
         '''Setting up the Invidual Frames and Windows''''''RYAN'''
