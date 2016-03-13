@@ -7,6 +7,8 @@ from expanded_basket import ExpandedBasket
 from sortingclass import SortAlgorithms
 from random import randint
 import random
+global _list1
+_list1 = []
 import sqlite3 as sql
 from collections import defaultdict, deque
 from sys import argv
@@ -18,6 +20,7 @@ _List4Table=[]
 global algorithm
 global tree
 global list1
+global _duration
 list1= []
 algorithm = 0
 
@@ -101,9 +104,9 @@ class MainInterface:
             self.button3.place(anchor="c", relx=0.585, rely=0.7)
 
             #Creates the related timer buttons & adds them to 'frameTimer',_Button1-3 is the duration selected in seconds
-            self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerHandler(a))
-            self._button2 = Button(self.frameTimer, text='2 minutes', command= lambda b=120: timerHandler(b))
-            self._button3 = Button(self.frameTimer, text='4 minutes', command= lambda c=240: timerHandler(c))
+            self._button1 = Button(self.frameTimer, text='1 minute', command= lambda a=60: timerInput(a))
+            self._button2 = Button(self.frameTimer, text='2 minutes', command= lambda b=120: timerInput(b))
+            self._button3 = Button(self.frameTimer, text='4 minutes', command= lambda c=240: timerInput(c))
             self._button1.place(anchor="c", relx=0.15, rely=0.87)
             self._button2.place(anchor="c", relx=0.50, rely=0.87)
             self._button3.place(anchor="c", relx=0.85, rely=0.87)
@@ -231,30 +234,21 @@ class MainInterface:
                 self.foundItem = False
                 self.pos = 0
 
-        '''A function to retrieve SQL database information and convert to a list removing any tuples''''''LAMAR'''
-        def randomitem():
+        def PlaceI():
             try:
-                #connects to the item database
                 con = sql.connect('ITEM DATABASE.sqlite')
                 cur = con.cursor()
-                #selects 9 random products from items table in database
                 cur.execute(''' SELECT product,Price FROM items ORDER BY
                                 RANDOM() LIMIT 22;''')
                 ItemList = []
-                #Creates a list of these items and prints the items selected to screen
                 for row in cur:
                     ItemList.append(row)
-                #Creates global _list1 to create another list from ItemList (to remove the tuple)
-                global _list1
-                #_list1 = [val for sublist in ItemList for val in sublist]
-                _list1 = []
                 _list1 = ItemList
-            #closes database connection in any circumstance
             finally:
                     con.close()
 
         '''Calls function and prints converted list''''''LAMAR'''
-        def RandomItemToTable():
+        def itemToTable():
             #Creates _List4Table (contains product names that will be added to treeview basket) _ProdPrice adds price to treeview
             #Creates ConversionList with a random entry from _list1
             ConversionList= random.choice(_list1)
@@ -499,10 +493,6 @@ class MainInterface:
 
                         )
 
-        '''Timer Related Code''''''LAMAR'''
-        def timerHandler(duration):
-            self.duration = duration
-            self.timerActiveLabel['text'] = duration // 60, "Minutes"
 
         '''Code to distribute items across the map''''''RYAN'''
         def distributeItems():
@@ -544,7 +534,7 @@ class MainInterface:
                 else:
                     track.insert(x,rnd)
                     self.canvas.create_image(tup[rnd], image = self.item)
-            randomitem()
+            PlaceI()
         global tree
 
 
@@ -760,7 +750,7 @@ class MainInterface:
             EB = ExpandedBasket.TreeviewItemTable()
             EB.TreeviewItemTable()
 
-        '''Sets up tje expanded basket table'''
+        '''Sets up the basket LAMAR'''
         def table():
             tree["columns"]=("Price","Quantity","Category")
             tree.column("Price", width=200 )
@@ -771,9 +761,8 @@ class MainInterface:
             tree.heading("Category", text=" Category")
 
 
-            global _List4Table
 
-        '''Sets up treeview table'''
+        '''Popuates basket with collected items'''
         def TreeviewItemTable():
         #for loop iterates over all items contained in _List4Table 
         #_List4Table contains items collected in game 
@@ -798,7 +787,9 @@ class MainInterface:
                 finally:
                     #Closes database connection in any circumstance
                     con.close()
-
+                    
+                    
+        '''Popuates basket with items sorted by price'''
         def TreeviewSortByPrice():
         #for loop iterates over all items contained in _ProdPrice
         #_ProdPrice contains item prices collected in game
@@ -823,6 +814,23 @@ class MainInterface:
                 finally:
                     #Closes database connection in any circumstance
                     con.close()
+                    
+        ''' Updates the timer frame with a countdown based on selected duration LAMAR'''
+        def Timercountdown(duration):
+             #Minus 1 from each side of duration int
+             for time in range(_duration, -1, -1):
+                # divmod() formats number to minutes & seconds
+                MinSec = "{:02d}:{:02d}".format(*divmod(t, 60))
+                #Displays time in string format
+                time_str.set(MinSec)
+                #Updates Timer display
+                self.frameTimer.update()
+                # delays counter from changing for one second
+                time.sleep(1)
+                
+        '''Saves selected timer duration''''''LAMAR'''
+        def timerInput(Length):
+            _duration = Length
 
         '''Calls all necessary functions'''
         frames(self)
@@ -831,7 +839,7 @@ class MainInterface:
         map(self)
         table()
         tree.pack()
-
+''' Creates the item selection menu for users'''
 class listbox():
 
    #Initialises the actual listbox screens attributes
