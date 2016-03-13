@@ -134,7 +134,7 @@ class MainInterface:
             R3.place(anchor="c", relx=0.25, rely=0.75)
 
         def algo(algo):
-            '''Used to modify the global variable 'algorithm''''
+            '''Used to modify the global variable 'algorithm'''
             print (algo)
             global algorithm
             algorithm = algo
