@@ -632,7 +632,7 @@ class MainInterface:
 
                 if algorithm == "1":
                     print ("Quick sort (descending)")
-                    bubbleSortReverse()
+                    quickSortReverse()
 
                 elif algorithm == "2":
                     print ("Bubble sort (descending)")
