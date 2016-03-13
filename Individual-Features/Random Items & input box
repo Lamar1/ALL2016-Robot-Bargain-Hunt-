@@ -1,0 +1,51 @@
+import random
+import sqlite3 as sql
+Author = "Lamar Gould"
+#A function to retrieve SQL database information and convert to a list removing any tuples 
+global ItemAmount
+ItemAmount = []
+def randomitem():
+    try:
+        #connects to the item database
+        con = sql.connect('ITEM DATABASE.sqlite')
+        cur = con.cursor()
+        #selects x random products from items table in database
+        cur.execute(''' SELECT product,Price FROM items ORDER BY
+                        RANDOM() LIMIT ?;''',(ItemAmount,)
+        ItemList = []
+        #Creates a list of the items chosen from database & stores in itemList
+        for row in cur:
+            ItemList.append(row)
+        #Creates global _list1 which creates list from ItemList removing tuples
+        global _list1
+        _list1 = [val for sublist in ItemList for val in sublist]
+        
+    #closes database connection in any circumstance
+    finally:
+            con.close()
+#The function to check if the user entry is a digit
+def validateEntry():
+    #Retrieves the input from user
+    NumSelected = SelectionWindow.get() 
+    #Checks if entry is a digit
+    #if it is checks if its between 1-50
+    if NumSelected.isdigit():
+        NumSelected = int(NumSelected)
+        #if num between 1 & 50 add to list ItemAmount
+        if NumSelected > 1 or NumSelcted <50:
+            ItemAmount = NumSelected 
+        #else raise a value error 
+        elif NumSelcted < 1 or NumSelcted >50:
+            raise ValueError("Number must be between 1-50")
+    #if entry isn't a digit raise TypeError
+    else:
+        raise TypeError("Please insert a value")
+    
+#Creates the entry widget window
+SelectionWindow = Entry(master, width=50)
+#Creates Input button that gets user entry
+button = Button(SelectionWindow, text="Input",command = lambda: validateEntry())
+button.pack()
+SelectionWindow.pack()
+    
+                        
