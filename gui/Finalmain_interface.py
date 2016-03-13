@@ -658,22 +658,6 @@ class MainInterface:
                     print ("Insertion sort (ascending)")
                     insertionSort()
 
-                if algorithm == "1":
-                    print ("Quick sort (ascending)")
-                    quickSort()
-
-                elif algorithm == "2":
-                    print ("Bubble sort (ascending)")
-                    bubbleSort()
-
-                elif algorithm == "3":
-                    print ("Insertion sort (ascending)")
-                    insertionSort()
-
-            elif self.button1["text"]=="^":
-                self.button1["text"]="v"
-                #Sort ascending
-
         '''Code to Sort by price''''''NICK'''
         def sortPrice():
         
