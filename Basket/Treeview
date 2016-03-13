@@ -12,10 +12,6 @@ tree.heading("Price", text=" Price")
 tree.heading("Quantity", text=" Quantity")
 tree.heading("Category", text=" Category")
 
-#ONLY USE TABLE'_List4Table' FOR TESTING
-#DELETE THE TABLE EXAMPLE '_List4Table' BEFORE FINAL IMPLEMENTATION
-_List4Table =['Grapes','Salmon',Bacon','Wine','Celery','Duck']
-
 def TreeviewItemTable():
 #for loop iterates over all items contained in _List4Table 
 #_List4Table contains items collected in game 
