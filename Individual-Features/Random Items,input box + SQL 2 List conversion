@@ -10,7 +10,7 @@ def randomitem():
         con = sql.connect('ITEM DATABASE.sqlite')
         cur = con.cursor()
         #selects x random products from items table in database
-        cur.execute(''' SELECT product,Price FROM items ORDER BY
+        cur.execute(''' SELECT product FROM items ORDER BY
                         RANDOM() LIMIT ?;''',(ItemAmount,)
         ItemList = []
         #Creates a list of the items chosen from database & stores in itemList
